@@ -1,7 +1,8 @@
-package com.edifice.residentialsecurity
+package com.edifice.residentialsecurity.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.edifice.residentialsecurity.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
