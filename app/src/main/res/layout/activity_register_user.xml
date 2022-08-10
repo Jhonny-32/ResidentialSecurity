@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.RegisterResidentialActivity">
+    tools:context=".activities.RegisterUserActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="25dp"
-            android:text="Registro conjunto"
+            android:text="Registro del administrador"
             android:textSize="30dp" />
 
         <TextView
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:text="Completa estos campos"/>
+            android:text="Registra tus datos personales"/>
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -35,10 +35,27 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="Nombre del conjunto">
+            android:hint="Nombre">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittext_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Apellido">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittext_lastname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"/>
@@ -52,27 +69,10 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="NIT">
+            android:hint="Correo electronico">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edittext_nit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="Dirección">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edittext_address"
+                android:id="@+id/edittext_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"/>
@@ -86,13 +86,62 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="Punto de referencia">
+            android:hint="Numero de celular">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edittext_ref_point"
+                android:id="@+id/edittext_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"/>
+                android:inputType="number"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Numero de documento">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittext_dni"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Contraseña">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittext_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Confiración de clave">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittext_confirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -116,6 +165,5 @@
             android:text="Registrarse"
             />
     </LinearLayout>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
