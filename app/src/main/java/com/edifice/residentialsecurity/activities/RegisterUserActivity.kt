@@ -11,6 +11,8 @@ import com.edifice.residentialsecurity.databinding.ActivityRegisterUserBinding
 import com.edifice.residentialsecurity.models.ResponseHttp
 import com.edifice.residentialsecurity.models.User
 import com.edifice.residentialsecurity.providers.UserProvider
+import com.edifice.residentialsecurity.util.SharedPref
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,14 +55,16 @@ class RegisterUserActivity : AppCompatActivity() {
                 password = password
             )
             userProvider.register(user)?.enqueue(object : Callback<ResponseHttp>{
-                override fun onResponse(
-                    call: Call<ResponseHttp>,
-                    response: Response<ResponseHttp>
-                ) {
+                override fun onResponse(call: Call<ResponseHttp>, response: Response<ResponseHttp>) {
+
+                    if(response.body()?.isSuccess == true){
+                        saveUserInSession(response.body()?.data.toString())
+                        goToResidential()
+                    }
+                    
                     Toast.makeText(this@RegisterUserActivity, response.body()?.message, Toast.LENGTH_LONG).show()
                     Log.d(TAG, "Response: ${response.body()?.message}")
                     Log.d(TAG, "Body: ${response.body()}")
-                    goToResidential()
                 }
 
                 override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
@@ -123,6 +127,13 @@ class RegisterUserActivity : AppCompatActivity() {
     fun goToResidential(){
         val i = Intent(this, RegisterResidentialActivity::class.java)
         startActivity(i)
+    }
+
+    private fun saveUserInSession(data: String){
+        val sharedPref = SharedPref(this)
+        val gson = Gson()
+        val user = gson.fromJson(data, User::class.java)
+        sharedPref.save("user", user)
     }
 
 }

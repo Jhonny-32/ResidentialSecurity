@@ -1,20 +1,29 @@
 package com.edifice.residentialsecurity.models
 
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 
 class User(
     @SerializedName("id") val id  : String? = null,
-    @SerializedName("name") val name  : String,
-    @SerializedName("lastname") val lastname  : String,
-    @SerializedName("phone") val phone  : String,
+    @SerializedName("name") var name  : String,
+    @SerializedName("lastname") var lastname  : String,
+    @SerializedName("phone") var phone  : String,
     @SerializedName("email") val email  : String,
     @SerializedName("image") val image  : String ? = null,
     @SerializedName("dni") val dni  : String,
     @SerializedName("password") val password  : String,
-    @SerializedName("lat") val lat: Double? = null,
-    @SerializedName("lng") val lng: Double? = null,
+    @SerializedName(  "session_token") val sessionToken: String? = null,
+    @SerializedName("roles") val roles: ArrayList<Rol>?= null
 ) {
+
     override fun toString(): String {
-        return "User(id=$id, name='$name', lastname='$lastname', phone='$phone', email='$email', image=$image, dni='$dni', password='$password', lat=$lat, lng=$lng)"
+        return "User(id=$id, name='$name', lastname='$lastname', phone='$phone', email='$email', image=$image, dni='$dni', password='$password', sessionToken=$sessionToken, roles=$roles)"
     }
+
+    fun toJson(): String{
+        return Gson().toJson(this)
+    }
+
+
+
 }

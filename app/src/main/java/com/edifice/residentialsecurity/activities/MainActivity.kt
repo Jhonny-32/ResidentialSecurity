@@ -1,13 +1,17 @@
 package com.edifice.residentialsecurity.activities
 
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
-import com.edifice.residentialsecurity.R
-import com.edifice.residentialsecurity.activities.client.ClientHomeActivity
+import com.edifice.residentialsecurity.activities.Administrator.home.AdministratorHomeActivity
+import com.edifice.residentialsecurity.activities.client.home.ClientHomeActivity
+import com.edifice.residentialsecurity.activities.manager.ManagerHomeActivity
+import com.edifice.residentialsecurity.activities.securityGuard.SecurityHomeActivity
 import com.edifice.residentialsecurity.databinding.ActivityMainBinding
 import com.edifice.residentialsecurity.models.ResponseHttp
 import com.edifice.residentialsecurity.models.User
@@ -20,6 +24,8 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
+    private val TAG ="MainActivity"
+
     private lateinit var binding: ActivityMainBinding
     var userProvider = UserProvider()
 
@@ -30,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.btnLogin.setOnClickListener{ login() }
+        binding.txtRegister.setOnClickListener{ goToRegister() }
         getUserFromSession()
     }
 
@@ -43,7 +50,6 @@ class MainActivity : AppCompatActivity() {
                     if (response.body()?.isSuccess == true){
                         Toast.makeText(this@MainActivity, response.body()?.message, Toast.LENGTH_SHORT).show()
                         saveUserInSession(response.body()?.data.toString())
-                        goToClientHome()
                     }else{
                         Toast.makeText(this@MainActivity, "Los no son correctos", Toast.LENGTH_SHORT).show()
                     }
@@ -73,8 +79,14 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    fun String.isEmailValid(): Boolean{
+    private fun String.isEmailValid(): Boolean{
         return !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
+    }
+
+    private fun goToSelectRol(){
+        val i = Intent(this, SelectRolesActivity::class.java)
+        i.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i)
     }
 
     private fun saveUserInSession(data: String){
@@ -82,21 +94,65 @@ class MainActivity : AppCompatActivity() {
         val gson = Gson()
         val user = gson.fromJson(data, User::class.java)
         sharedPref.save("user", user)
+        Log.d(TAG, "USER $user")
+
+        if (user.roles?.size!! > 1){
+            goToSelectRol()
+        }
+        else{
+            goToClientHome()
+        }
+
+    }
+    private fun goToRegister(){
+        val i = Intent(this, RegisterUserActivity::class.java)
+        startActivity(i)
     }
 
     private fun goToClientHome(){
         val i = Intent(this, ClientHomeActivity::class.java)
+        i.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
         startActivity(i)
     }
 
-    private fun getUserFromSession(){
+    private fun goToAdministrator(){
+        val i = Intent(this, AdministratorHomeActivity::class.java)
+        i.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i)
+    }
+    private fun goToSecurityGuard(){
+        val i = Intent(this, SecurityHomeActivity::class.java)
+        i.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i)
+    }
+
+    private fun goToManager(){
+        val i = Intent(this, ManagerHomeActivity::class.java)
+        startActivity(i)
+    }
+
+    private fun getUserFromSession() {
         val sharedPref = SharedPref(this)
         val gson = Gson()
+        if (!sharedPref.getData("user").isNullOrBlank()) {
+            // SI EL USARIO EXISTE EN SESION
+            gson.fromJson(sharedPref.getData("user"), User::class.java)
+            if (!sharedPref.getData("rol").isNullOrBlank()) {
+                // SI EL USUARIO SELECCIONO EL ROL
+                val rol = sharedPref.getData("rol")?.replace("\"", "")
 
-        if(!sharedPref.getData("user").isNullOrBlank()){
-            val user = gson.fromJson(sharedPref.getData("user"), User::class.java)
-            goToClientHome()
+                if (rol == "ADMINISTRADOR") {
+                    goToAdministrator()
+                } else if (rol == "PROPIETARIO") {
+                    goToClientHome()
+                } else if (rol == "VIGILANTE") {
+                    goToSecurityGuard()
+                }else if (rol == "MANAGER") {
+                    goToManager()
+                }
+            } else {
+                goToClientHome()
+            }
         }
-
     }
 }

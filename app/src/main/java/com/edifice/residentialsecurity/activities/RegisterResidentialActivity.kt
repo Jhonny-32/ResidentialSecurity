@@ -1,8 +1,8 @@
 package com.edifice.residentialsecurity.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import com.edifice.residentialsecurity.databinding.ActivityRegisterBinding
@@ -55,6 +55,7 @@ class RegisterResidentialActivity : AppCompatActivity() {
                     Toast.makeText(this@RegisterResidentialActivity, response.body()?.message, Toast.LENGTH_LONG).show()
                     Log.d(TAG, "Response: ${response.body()?.message}")
                     Log.d(TAG, "Body: ${response.body()}")
+                    goToSaveImage()
                 }
 
                 override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
@@ -96,6 +97,12 @@ class RegisterResidentialActivity : AppCompatActivity() {
             return false
         }
         return true
+    }
+
+    private fun goToSaveImage(){
+        val i = Intent(this, SaveImageActivity::class.java)
+        i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i)
     }
 
 }
