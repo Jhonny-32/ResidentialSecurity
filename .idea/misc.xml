@@ -4,7 +4,47 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/USER/AndroidStudioProjects/ResidentialSecurity/app/src/main/res/layout/activity_main.xml" value="0.16485507246376813" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/drawable/ic_bottom_border.xml" value="0.1995" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/drawable/ic_color_fond.xml" value="0.1" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/drawable/ic_email.xml" value="0.1" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/drawable/ic_eye.xml" value="0.123" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/drawable/ic_maps.xml" value="0.1" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/drawable/ic_orders.xml" value="0.1" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/drawable/ic_person.xml" value="0.1" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/drawable/ic_person_pin.xml" value="0.1" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/drawable/ic_top_border.xml" value="0.1" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/drawable/ic_top_bottom.xml" value="0.1" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/drawable/item_selector.xml" value="0.1" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/drawable/round_corner.xml" value="0.1" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/drawable/rounded_button.xml" value="0.1" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/drawable/text_selector.xml" value="0.12" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/action_bar.xml" value="0.25" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/activity_administrator_home.xml" value="0.1171875" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/activity_client_home.xml" value="0.25" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/activity_client_update.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/activity_main.xml" value="0.14" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/activity_manager_home.xml" value="0.18" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/activity_manager_home2.xml" value="0.1" />
         <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/activity_register_user.xml" value="0.21" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/activity_save_image.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/activity_security_home.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/activity_select_roles.xml" value="0.22" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/cardview_data_resident.xml" value="0.33" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/cardview_roles.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/fragment_administrator_data_resident.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/fragment_administrator_data_security.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/fragment_administrator_orders.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/fragment_client_orders.xml" value="0.33153153153153153" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/fragment_client_profile.xml" value="0.25" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/fragment_manager_maps.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/fragment_security_data_resident.xml" value="0.25" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/layout/fragment_security_orders.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/menu/bottom_navigation_menu_administration.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/menu/bottom_navigation_menu_administrator.xml" value="0.1361111111111111" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/menu/bottom_navigation_menu_client.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/menu/bottom_navigation_menu_manager.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/USER/Documents/GitHub/ResidentialSecurity/app/src/main/res/menu/bottom_navigation_menu_security.xml" value="0.19166666666666668" />
       </map>
     </option>
   </component>
