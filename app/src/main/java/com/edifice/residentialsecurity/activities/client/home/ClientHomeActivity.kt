@@ -23,7 +23,6 @@ class ClientHomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityClientHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         sharedPref = SharedPref(this)
         openFragment(ClientOrdersFragment())
         binding.bottomNavigations.setOnItemSelectedListener{

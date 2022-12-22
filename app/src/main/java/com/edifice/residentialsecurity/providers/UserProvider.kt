@@ -8,6 +8,7 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Response
 import java.io.File
 
 class UserProvider(val token: String? =null) {
@@ -40,6 +41,10 @@ class UserProvider(val token: String? =null) {
         val requestBody = RequestBody.create(MediaType.parse("text/plain"), user.toJson())
 
         return userRoutesToken?.update(image, requestBody, token!!)
+    }
+
+    fun getDataResident(conjunto: String): Call<ArrayList<User>>?{
+        return userRoutesToken?.getDataResident(conjunto, token!!)
     }
 
 }

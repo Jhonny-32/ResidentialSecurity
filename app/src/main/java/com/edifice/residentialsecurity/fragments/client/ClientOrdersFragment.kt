@@ -1,60 +1,55 @@
 package com.edifice.residentialsecurity.fragments.client
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.edifice.residentialsecurity.R
+import android.widget.Toast
+import android.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.edifice.residentialsecurity.adapters.DataResidentAdapter
+import com.edifice.residentialsecurity.databinding.FragmentClientOrdersBinding
+import com.edifice.residentialsecurity.models.User
+import com.edifice.residentialsecurity.providers.UserProvider
+import com.edifice.residentialsecurity.util.SharedPref
+import com.google.gson.Gson
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ClientOrdersFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ClientOrdersFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    val TAG ="ClientOrdersFragment"
+
+    private var _binding: FragmentClientOrdersBinding?= null
+    private val binding get() = _binding!!
+
+    var userProvider : UserProvider?=null
+    var adapter: DataResidentAdapter? = null
+    var user : User? = null
+    var sharedPref: SharedPref? = null
+    var userData = ArrayList<User>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_client_orders, container, false)
+    ): View {
+        _binding = FragmentClientOrdersBinding.inflate(inflater, container, false)
+        sharedPref = SharedPref(requireActivity())
+        getUserFromSession()
+        userProvider = UserProvider(user?.sessionToken!!)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ClientOrdersFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ClientOrdersFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+
+    private fun getUserFromSession() {
+        val gson = Gson()
+        if (!sharedPref?.getData("user").isNullOrBlank()) {
+            user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
+        }
     }
+
 }

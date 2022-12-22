@@ -5,7 +5,7 @@ import com.edifice.residentialsecurity.routes.UserRoutes
 
 class ApiRoutes {
 
-    val API_URL = "http://192.168.0.8:3000/api/"
+    val API_URL = "http://192.168.0.10:3000/api/"
     val retrofit = RetrofitClient()
 
     fun getResidentialsRoutes():ResidentialsRoutes{

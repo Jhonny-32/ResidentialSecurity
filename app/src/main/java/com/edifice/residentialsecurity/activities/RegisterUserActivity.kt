@@ -52,7 +52,7 @@ class RegisterUserActivity : AppCompatActivity() {
                 phone = phone,
                 email = email,
                 dni = dni,
-                password = password
+                password = password,
             )
             userProvider.register(user)?.enqueue(object : Callback<ResponseHttp>{
                 override fun onResponse(call: Call<ResponseHttp>, response: Response<ResponseHttp>) {

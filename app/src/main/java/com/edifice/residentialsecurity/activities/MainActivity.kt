@@ -96,12 +96,10 @@ class MainActivity : AppCompatActivity() {
         sharedPref.save("user", user)
         Log.d(TAG, "USER $user")
 
-        if (user.roles?.size!! > 1){
+        if (user.roles?.size!! >= 1){
             goToSelectRol()
         }
-        else{
-            goToClientHome()
-        }
+
 
     }
     private fun goToRegister(){
@@ -151,7 +149,7 @@ class MainActivity : AppCompatActivity() {
                     goToManager()
                 }
             } else {
-                goToClientHome()
+                goToManager()
             }
         }
     }

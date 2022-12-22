@@ -42,7 +42,7 @@
             android:exported="false" />
         <activity
             android:name=".activities.client.home.ClientHomeActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".activities.RegisterUserActivity"
             android:exported="true" />
@@ -51,7 +51,8 @@
             android:exported="true" />
         <activity
             android:name=".activities.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.ResidentialSecurity.login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

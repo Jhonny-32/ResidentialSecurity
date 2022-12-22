@@ -29,4 +29,11 @@ interface UserRoutes {
         @Body user : User,
         @Header("Authorization") token: String
     ): Call<ResponseHttp>
+
+    @FormUrlEncoded
+    @POST("user/getDataResident")
+    fun getDataResident(
+        @Field("conjunto") conjunto: String,
+        @Header("Authorization") token: String
+    ): Call<ArrayList<User>>
 }
