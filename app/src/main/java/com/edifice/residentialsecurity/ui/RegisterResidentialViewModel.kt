@@ -3,6 +3,7 @@ package com.edifice.residentialsecurity.ui
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.edifice.residentialsecurity.core.ViewUiState
 import com.edifice.residentialsecurity.data.model.Residential
 import com.edifice.residentialsecurity.domain.RegisterResidentialUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,11 +15,10 @@ class RegisterResidentialViewModel: ViewModel() {
     private companion object {
         const val MIN_PASSWORD_LENGTH = 6
     }
-
     private var registerResidentialUseCase = RegisterResidentialUseCase()
 
-    private val _registerResidentialState = MutableStateFlow<LoginUiState>(LoginUiState.Empty)
-    val loginUiState: StateFlow<LoginUiState>
+    private val _registerResidentialState = MutableStateFlow<ViewUiState>(ViewUiState.Empty)
+    val loginUiState: StateFlow<ViewUiState>
         get() = _registerResidentialState
 
     private val _viewState = MutableStateFlow(RegisterViewState())
@@ -26,8 +26,8 @@ class RegisterResidentialViewModel: ViewModel() {
         get() = _viewState
 
     fun onSignInSelected(residential: Residential) {
-        val viewState = residential.toSignInViewState()
-        if (viewState.registerValidated() && residential.isNotEmpty()){
+        val viewStates = residential.toSignInViewState()
+        if (viewStates.registerValidated() && residential.isNotEmpty()){
             register(residential)
         }else{
             onFieldsChanged(residential)
@@ -36,12 +36,12 @@ class RegisterResidentialViewModel: ViewModel() {
 
     private fun register(residential: Residential){
         viewModelScope.launch {
-            _registerResidentialState.value = LoginUiState.Loading
+            _registerResidentialState.value = ViewUiState.Loading
             val register = registerResidentialUseCase(residential)
             if (register?.isSuccessful == true){
-                _registerResidentialState.value = LoginUiState.Success
+                _registerResidentialState.value = ViewUiState.Success
             }else{
-                _registerResidentialState.value = LoginUiState.Error("Error al registar el conjunto ")
+                _registerResidentialState.value = ViewUiState.Error("Error al registar el conjunto ")
             }
         }
     }
@@ -63,12 +63,5 @@ class RegisterResidentialViewModel: ViewModel() {
             isValidAddress = isValidName(address),
             isValidNit = isValidNumber(nit)
         )
-    }
-
-    sealed class LoginUiState{
-        object Success: LoginUiState()
-        data class Error(val message: String) : LoginUiState()
-        object Loading: LoginUiState()
-        object Empty: LoginUiState()
     }
 }

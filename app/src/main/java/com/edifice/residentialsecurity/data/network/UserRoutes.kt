@@ -5,11 +5,12 @@ import com.edifice.residentialsecurity.data.model.User
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface UserRoutes {
     @POST("user/create")
-    fun register(@Body user: User) : Call<ResponseHttp>
+    suspend fun register(@Body user: User) : Response<ResponseHttp>
 
     @FormUrlEncoded
     @POST("user/login")

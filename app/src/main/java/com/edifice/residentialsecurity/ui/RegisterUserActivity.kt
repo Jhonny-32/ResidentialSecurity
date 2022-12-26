@@ -5,35 +5,155 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import com.edifice.residentialsecurity.databinding.ActivityRegisterUserBinding
+import androidx.activity.viewModels
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import com.edifice.residentialsecurity.core.ViewUiState
+import com.edifice.residentialsecurity.core.ex.dismissKeyboard
+import com.edifice.residentialsecurity.core.ex.loseFocusAfterAction
+import com.edifice.residentialsecurity.core.ex.onTextChanged
+import com.edifice.residentialsecurity.data.model.Residential
 import com.edifice.residentialsecurity.data.model.ResponseHttp
 import com.edifice.residentialsecurity.data.model.User
+import com.edifice.residentialsecurity.databinding.ActivityRegisterUserBinding
 import com.edifice.residentialsecurity.providers.UserProvider
 import com.edifice.residentialsecurity.util.SharedPref
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class RegisterUserActivity : AppCompatActivity() {
 
-    val TAG = "RegisterUserActivity"
-
     private lateinit var binding: ActivityRegisterUserBinding
-
-    var userProvider = UserProvider()
+    private val registerUserViewModel: RegisterUserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initUI()
+    }
+    private fun initUI(){
+        initListeners()
+        initObservers()
+    }
+    private fun initListeners(){
+        binding.edittextName.loseFocusAfterAction(EditorInfo.IME_ACTION_NEXT)
+        binding.edittextName.setOnFocusChangeListener { _, hasFocus -> onFieldChanged(hasFocus) }
+        binding.edittextName.onTextChanged { onFieldChanged() }
 
-        binding.btnRegister.setOnClickListener{
-            register()
+        binding.edittextLastname.loseFocusAfterAction(EditorInfo.IME_ACTION_NEXT)
+        binding.edittextLastname.setOnFocusChangeListener { _, hasFocus -> onFieldChanged(hasFocus) }
+        binding.edittextLastname.onTextChanged { onFieldChanged() }
+
+        binding.edittextPhone.loseFocusAfterAction(EditorInfo.IME_ACTION_NEXT)
+        binding.edittextPhone.setOnFocusChangeListener { _, hasFocus -> onFieldChanged(hasFocus) }
+        binding.edittextPhone.onTextChanged { onFieldChanged() }
+
+        binding.edittextEmail.loseFocusAfterAction(EditorInfo.IME_ACTION_NEXT)
+        binding.edittextEmail.setOnFocusChangeListener { _, hasFocus -> onFieldChanged(hasFocus) }
+        binding.edittextEmail.onTextChanged { onFieldChanged() }
+
+        binding.edittextDni.loseFocusAfterAction(EditorInfo.IME_ACTION_NEXT)
+        binding.edittextDni.setOnFocusChangeListener { _, hasFocus -> onFieldChanged(hasFocus) }
+        binding.edittextDni.onTextChanged { onFieldChanged() }
+
+        binding.edittextPassword.loseFocusAfterAction(EditorInfo.IME_ACTION_NEXT)
+        binding.edittextPassword.setOnFocusChangeListener { _, hasFocus -> onFieldChanged(hasFocus) }
+        binding.edittextPassword.onTextChanged { onFieldChanged() }
+
+
+        with(binding){
+            btnRegister.setOnClickListener {
+                it.dismissKeyboard()
+                registerUserViewModel.onSignInSelected(
+                    User(
+                        name = binding.edittextName.text.toString(),
+                        lastname = binding.edittextLastname.text.toString(),
+                        phone = binding.edittextPhone.text.toString(),
+                        email = binding.edittextEmail.text.toString(),
+                        dni = binding.edittextDni.text.toString(),
+                        password = binding.edittextPassword.toString()
+                    )
+                )
+            }
         }
 
     }
+
+    private fun initObservers(){
+        lifecycleScope.launch {
+            registerUserViewModel.viewState.collect{viewState ->
+                updateUI(viewState)
+            }
+        }
+        lifecycleScope.launchWhenCreated {
+            registerUserViewModel.registerUser.collect {
+                when (it) {
+                    is ViewUiState.Success -> {
+                        Snackbar.make(
+                            binding.root,
+                            "Registrado correctamente el administrador",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                        binding.progressBar.isVisible = false
+                    }
+                    is ViewUiState.Error -> {
+                        Snackbar.make(
+                            binding.root,
+                            it.message,
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                        binding.progressBar.isVisible = false
+                    }
+                    is ViewUiState.Loading -> {
+                        binding.progressBar.isVisible = true
+                    }
+                    else -> Unit
+                }
+            }
+        }
+    }
+
+    private fun updateUI(viewState: RegisterUserViewState) {
+        with(binding){
+            edittextName.error =
+                if (viewState.isValidName) null else "El nombre no es valido"
+            edittextLastname.error =
+                if (viewState.isValidLastName) null else "El apellido no es valido"
+            edittextPhone.error =
+                if(viewState.isValidPhone) null else "El telefono no es valido"
+            edittextEmail.error =
+                if(viewState.isValidEmail) null else "El email no es valido"
+            edittextDni.error =
+                if(viewState.isValidDni) null else "El DNI no es valido"
+            edittextPassword.error =
+                if(viewState.isValidPassword) null else "Contraseña invalida"
+
+        }
+    }
+
+    private fun onFieldChanged(hasFocus: Boolean = false) {
+        if (!hasFocus) {
+            registerUserViewModel.onFieldsChanged(
+                User(
+                    name = binding.edittextName.text.toString(),
+                    lastname = binding.edittextLastname.text.toString(),
+                    phone = binding.edittextPhone.text.toString(),
+                    email = binding.edittextEmail.text.toString(),
+                    dni = binding.edittextDni.text.toString(),
+                    password = binding.edittextPassword.toString()
+                )
+            )
+        }
+    }
+
+    /*
     private fun register(){
         val name = binding.edittextName.text.toString()
         val lastname = binding.edittextLastname.text.toString()
@@ -133,6 +253,6 @@ class RegisterUserActivity : AppCompatActivity() {
         val gson = Gson()
         val user = gson.fromJson(data, User::class.java)
         sharedPref.save("user", user)
-    }
+    }*/
 
 }

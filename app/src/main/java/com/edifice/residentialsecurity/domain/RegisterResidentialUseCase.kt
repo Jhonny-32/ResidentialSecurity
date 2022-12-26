@@ -9,11 +9,11 @@ import retrofit2.Response
 
 class RegisterResidentialUseCase {
 
-    private val respository = ResidentialRepository()
+    private val repository = ResidentialRepository()
 
     suspend operator fun invoke(residential: Residential): Response<ResponseHttp>? {
         Log.d("JHONNY", "HOLA ERROR EN EL DOMINIO")
-        return respository.getRegisterResidential(residential)
+        return repository.getRegisterResidential(residential)
     }
 
 }

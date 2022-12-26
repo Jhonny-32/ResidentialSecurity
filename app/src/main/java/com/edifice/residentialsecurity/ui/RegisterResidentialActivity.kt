@@ -6,6 +6,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import com.edifice.residentialsecurity.core.ViewUiState
 import com.edifice.residentialsecurity.core.ex.dismissKeyboard
 import com.edifice.residentialsecurity.core.ex.loseFocusAfterAction
 import com.edifice.residentialsecurity.core.ex.onTextChanged
@@ -66,7 +67,7 @@ class RegisterResidentialActivity : AppCompatActivity() {
         lifecycleScope.launchWhenCreated {
             registerResidentialViewModel.loginUiState.collect {
                 when (it) {
-                    is RegisterResidentialViewModel.LoginUiState.Success -> {
+                    is ViewUiState.Success -> {
                         Snackbar.make(
                             binding.root,
                             "Registrado Correctamente",
@@ -74,7 +75,7 @@ class RegisterResidentialActivity : AppCompatActivity() {
                         ).show()
                         binding.progressBar.isVisible = false
                     }
-                    is RegisterResidentialViewModel.LoginUiState.Error -> {
+                    is ViewUiState.Error -> {
                         Snackbar.make(
                             binding.root,
                             it.message,
@@ -82,7 +83,7 @@ class RegisterResidentialActivity : AppCompatActivity() {
                         ).show()
                         binding.progressBar.isVisible = false
                     }
-                    is RegisterResidentialViewModel.LoginUiState.Loading -> {
+                    is ViewUiState.Loading -> {
                         binding.progressBar.isVisible = true
                     }
                     else -> Unit

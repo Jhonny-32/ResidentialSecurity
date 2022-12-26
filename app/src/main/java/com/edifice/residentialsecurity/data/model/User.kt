@@ -24,6 +24,8 @@ class User(
         return "User(id=$id, name='$name', lastname='$lastname', phone='$phone', email='$email', image=$image, dni='$dni', password='$password', sessionToken=$sessionToken, conjunto=$conjunto, roles=$roles, tower='$tower', apartament='$apartament')"
     }
 
+    fun isNotEmpty() = name.isNotEmpty() && lastname.isNotEmpty() && phone.isNotEmpty() && email.isNotEmpty() && dni.isNotEmpty() && password.isNotEmpty()
+
     fun toJson(): String {
         return Gson().toJson(this)
     }
