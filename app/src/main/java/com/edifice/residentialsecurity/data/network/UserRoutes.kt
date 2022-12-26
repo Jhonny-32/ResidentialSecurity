@@ -1,0 +1,38 @@
+package com.edifice.residentialsecurity.data.network
+
+import com.edifice.residentialsecurity.data.model.ResponseHttp
+import com.edifice.residentialsecurity.data.model.User
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.http.*
+
+interface UserRoutes {
+    @POST("user/create")
+    fun register(@Body user: User) : Call<ResponseHttp>
+
+    @FormUrlEncoded
+    @POST("user/login")
+    fun login(@Field("email") email: String, @Field("password") password : String): Call<ResponseHttp>
+
+    @Multipart
+    @PUT("users/update")
+    fun update(
+        @Part image: MultipartBody.Part,
+        @Part("user") user : RequestBody,
+        @Header("Authorization") token: String
+    ): Call<ResponseHttp>
+
+    @PUT("users/updateWithOut")
+    fun updateWithOutImage(
+        @Body user : User,
+        @Header("Authorization") token: String
+    ): Call<ResponseHttp>
+
+    @FormUrlEncoded
+    @POST("user/getDataResident")
+    fun getDataResident(
+        @Field("conjunto") conjunto: String,
+        @Header("Authorization") token: String
+    ): Call<ArrayList<User>>
+}

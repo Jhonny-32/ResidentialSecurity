@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.Administrator.home.AdministratorHomeActivity">
+    tools:context=".ui.home.AdministratorHomeActivity">
 
     <FrameLayout
         android:id="@+id/container"

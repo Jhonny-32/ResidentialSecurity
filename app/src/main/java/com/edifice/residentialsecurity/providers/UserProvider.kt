@@ -1,14 +1,13 @@
 package com.edifice.residentialsecurity.providers
 
-import com.edifice.residentialsecurity.api.ApiRoutes
-import com.edifice.residentialsecurity.models.ResponseHttp
-import com.edifice.residentialsecurity.models.User
-import com.edifice.residentialsecurity.routes.UserRoutes
+import com.edifice.residentialsecurity.core.ApiRoutes
+import com.edifice.residentialsecurity.data.model.ResponseHttp
+import com.edifice.residentialsecurity.data.model.User
+import com.edifice.residentialsecurity.data.network.UserRoutes
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.Response
 import java.io.File
 
 class UserProvider(val token: String? =null) {
