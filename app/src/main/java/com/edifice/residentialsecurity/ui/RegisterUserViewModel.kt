@@ -4,6 +4,7 @@ import android.util.Patterns
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.edifice.residentialsecurity.R
 import com.edifice.residentialsecurity.core.ViewUiState
 import com.edifice.residentialsecurity.data.model.User
 import com.edifice.residentialsecurity.domain.RegisterUserCaseUse
@@ -36,14 +37,15 @@ class RegisterUserViewModel: ViewModel() {
         }
     }
 
-     fun registerUser(user: User) {
+     private fun registerUser(user: User) {
         viewModelScope.launch {
             _registerUser.value = ViewUiState.Loading
             val register = registerResidentialUseCase.invoke(user)
             if (register?.isSuccessful == true){
                 _registerUser.value = ViewUiState.Success
+                //saveUserInSession(register.body().toString())
             }else{
-                _registerUser.value = ViewUiState.Error("Error al registrar el usuario")
+                _registerUser.value = ViewUiState.Error(R.string.register_user_ui_state.toString())
             }
         }
     }
@@ -74,5 +76,12 @@ class RegisterUserViewModel: ViewModel() {
             isValidPhone = isValidNumber(phone)
         )
     }
+    /*
+    private fun saveUserInSession(data: String){
+        val sharedPref = SharedPref(Activity())
+        val gson = Gson()
+        val user = gson.fromJson(data, User::class.java)
+        sharedPref.save("user", user)
+    }*/
 
 }

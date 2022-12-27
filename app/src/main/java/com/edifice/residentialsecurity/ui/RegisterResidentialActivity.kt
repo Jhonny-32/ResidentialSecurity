@@ -6,6 +6,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import com.edifice.residentialsecurity.R
 import com.edifice.residentialsecurity.core.ViewUiState
 import com.edifice.residentialsecurity.core.ex.dismissKeyboard
 import com.edifice.residentialsecurity.core.ex.loseFocusAfterAction
@@ -70,7 +71,7 @@ class RegisterResidentialActivity : AppCompatActivity() {
                     is ViewUiState.Success -> {
                         Snackbar.make(
                             binding.root,
-                            "Registrado Correctamente",
+                            getText(R.string.register_residential_success),
                             Snackbar.LENGTH_LONG
                         ).show()
                         binding.progressBar.isVisible = false
@@ -95,11 +96,11 @@ class RegisterResidentialActivity : AppCompatActivity() {
     private fun updateUI(viewState: RegisterViewState) {
         with(binding){
             edittextAddress.error =
-                if (viewState.isValidAddress) null else "La direccion no es valido"
+                if (viewState.isValidAddress) null else getString(R.string.register_residential_address)
             edittextNit.error =
-                if (viewState.isValidNit) null else "El nit no es valido"
+                if (viewState.isValidNit) null else getString(R.string.register_residential_nit)
             edittextName.error =
-                if(viewState.isValidNameResidential) null else "El nombre no es valido"
+                if(viewState.isValidNameResidential) null else getString(R.string.register_residential_name)
         }
     }
 
