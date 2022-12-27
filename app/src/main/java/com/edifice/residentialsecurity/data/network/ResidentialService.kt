@@ -31,4 +31,10 @@ class ResidentialService {
         }
     }
 
+    suspend fun login(email: String, password: String) : Response<ResponseHttp>?{
+        return withContext(Dispatchers.IO){
+            userRoutes?.login(email, password)
+        }
+    }
+
 }

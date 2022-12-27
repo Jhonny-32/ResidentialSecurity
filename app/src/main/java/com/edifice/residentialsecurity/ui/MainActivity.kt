@@ -7,7 +7,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import com.edifice.residentialsecurity.R
+import com.edifice.residentialsecurity.core.ViewUiState
+import com.edifice.residentialsecurity.core.ex.dismissKeyboard
+import com.edifice.residentialsecurity.core.ex.loseFocusAfterAction
+import com.edifice.residentialsecurity.core.ex.onTextChanged
 import com.edifice.residentialsecurity.ui.home.AdministratorHomeActivity
 import com.edifice.residentialsecurity.ui.client.home.ClientHomeActivity
 import com.edifice.residentialsecurity.ui.manager.ManagerHomeActivity
@@ -17,6 +26,7 @@ import com.edifice.residentialsecurity.data.model.ResponseHttp
 import com.edifice.residentialsecurity.data.model.User
 import com.edifice.residentialsecurity.providers.UserProvider
 import com.edifice.residentialsecurity.util.SharedPref
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,19 +37,95 @@ class MainActivity : AppCompatActivity() {
     private val TAG ="MainActivity"
 
     private lateinit var binding: ActivityMainBinding
-    var userProvider = UserProvider()
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        initUi()
+        /*
         binding.btnLogin.setOnClickListener{ login() }
         binding.txtRegister.setOnClickListener{ goToRegister() }
-        getUserFromSession()
+        getUserFromSession()*/
     }
 
+    private fun initUi(){
+        initListeners()
+        initObservers()
+    }
+
+    private fun initListeners(){
+        binding.edittextEmail.loseFocusAfterAction(EditorInfo.IME_ACTION_NEXT)
+        binding.edittextEmail.onTextChanged { onFieldChanged() }
+
+        binding.edittextPassword.loseFocusAfterAction(EditorInfo.IME_ACTION_DONE)
+        binding.edittextPassword.setOnFocusChangeListener { _, hasFocus -> onFieldChanged(hasFocus) }
+        binding.edittextPassword.onTextChanged { onFieldChanged() }
+
+        binding.btnLogin.setOnClickListener {
+            it.dismissKeyboard()
+            mainViewModel.onLoginSelected(
+                email = binding.edittextEmail.text.toString(),
+                password = binding.edittextPassword.text.toString()
+            )
+        }
+    }
+
+    private fun initObservers(){
+        lifecycleScope.launchWhenStarted {
+            mainViewModel.viewState.collect { viewState ->
+                updateUI(viewState)
+            }
+        }
+        lifecycleScope.launchWhenCreated {
+            mainViewModel.loginUser.collect {
+                when (it) {
+                    is ViewUiState.Success -> {
+                        Snackbar.make(
+                            binding.root,
+                            getString(R.string.login_success),
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                        binding.progressBar.isVisible = false
+                    }
+                    is ViewUiState.Error -> {
+                        Snackbar.make(
+                            binding.root,
+                            it.message,
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                        binding.progressBar.isVisible = false
+                    }
+                    is ViewUiState.Loading -> {
+                        binding.progressBar.isVisible = true
+                    }
+                    else -> Unit
+                }
+            }
+        }
+    }
+
+    private fun updateUI(viewState: LoginUserViewState) {
+        with(binding) {
+            edittextEmail.error =
+                if (viewState.isValidUser) null else getString(R.string.login_error_email)
+            edittextPassword.error =
+                if (viewState.isValidPassword) null else getString(R.string.login_error_password)
+        }
+    }
+
+    private fun onFieldChanged(hasFocus: Boolean = false) {
+        if (!hasFocus) {
+            mainViewModel.onFieldsChanged(
+                email = binding.edittextEmail.text.toString(),
+                password = binding.edittextPassword.text.toString()
+            )
+        }
+    }
+
+    /*
     private fun login(){
         val email = binding.edittextEmail.text.toString()
         val password = binding.edittextPassword.text.toString()
@@ -153,4 +239,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    */
+
 }

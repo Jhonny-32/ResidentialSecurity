@@ -11,4 +11,6 @@ data class RegisterUserViewState(
 
 ){
     fun registerValidated() =  isValidName && isValidLastName && isValidLastName && isValidPhone && isValidEmail && isValidDni && isValidPassword
+
+    fun loginValidated() = isValidEmail && isValidPassword
 }

@@ -4,7 +4,6 @@ import android.util.Patterns
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.edifice.residentialsecurity.R
 import com.edifice.residentialsecurity.core.ViewUiState
 import com.edifice.residentialsecurity.data.model.User
 import com.edifice.residentialsecurity.domain.RegisterUserCaseUse
@@ -28,6 +27,7 @@ class RegisterUserViewModel: ViewModel() {
     val viewState : StateFlow<RegisterUserViewState>
         get() = _viewState
 
+
     fun onSignInSelected(user: User){
         val viewStates = user.toSignInViewState()
         if (viewStates.registerValidated() && user.isNotEmpty()){
@@ -45,7 +45,7 @@ class RegisterUserViewModel: ViewModel() {
                 _registerUser.value = ViewUiState.Success
                 //saveUserInSession(register.body().toString())
             }else{
-                _registerUser.value = ViewUiState.Error(R.string.register_user_ui_state.toString())
+                _registerUser.value = ViewUiState.Error("Error al registrar el administrator")
             }
         }
     }

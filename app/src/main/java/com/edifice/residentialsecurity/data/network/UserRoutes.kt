@@ -14,7 +14,7 @@ interface UserRoutes {
 
     @FormUrlEncoded
     @POST("user/login")
-    fun login(@Field("email") email: String, @Field("password") password : String): Call<ResponseHttp>
+    suspend fun login(@Field("email") email: String, @Field("password") password : String): Response<ResponseHttp>
 
     @Multipart
     @PUT("users/update")

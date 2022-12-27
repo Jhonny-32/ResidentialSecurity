@@ -18,6 +18,9 @@
 	<string name="register_residential_name">El nombre no es valido</string>
 	<string name="register_residential_success">Registrado Correctamente</string>
 
+	<string name="login_error_email">El email no es valido</string>
+	<string name="login_error_password">Debe contener al menos 6 caracteres</string>
+	<string name="login_success">Bienvenido</string>
 
 
 	<string name="hello_blank_fragment">Hello blank fragment</string>

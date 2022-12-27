@@ -19,4 +19,8 @@ class ResidentialRepository {
         return residentialApi.registerUser(user)
     }
 
+    suspend fun getLogin(email: String, password: String):Response<ResponseHttp>?{
+        return residentialApi.login(email, password)
+    }
+
 }

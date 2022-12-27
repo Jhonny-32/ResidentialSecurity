@@ -3,7 +3,6 @@ package com.edifice.residentialsecurity.ui
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.edifice.residentialsecurity.R
 import com.edifice.residentialsecurity.core.ViewUiState
 import com.edifice.residentialsecurity.data.model.Residential
 import com.edifice.residentialsecurity.domain.RegisterResidentialUseCase
@@ -42,7 +41,7 @@ class RegisterResidentialViewModel: ViewModel() {
             if (register?.isSuccessful == true){
                 _registerResidentialState.value = ViewUiState.Success
             }else{
-                _registerResidentialState.value = ViewUiState.Error(R.string.register_residential_ui_state.toString())
+                _registerResidentialState.value = ViewUiState.Error("Error al registrar el conjunto")
             }
         }
     }

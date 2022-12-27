@@ -24,10 +24,10 @@ class UserProvider(val token: String? =null) {
         }
 
     }
-
+    /*
     fun login(email : String, password : String): Call<ResponseHttp>?{
         return userRoutes?.login(email,password)
-    }
+    }*/
     fun updateWithOutImage(user: User): Call<ResponseHttp>?{
         return userRoutesToken?.updateWithOutImage(user, token!!)
     }
