@@ -1,4 +1,4 @@
-package com.edifice.residentialsecurity.ui.fragments.securityGuard
+package com.edifice.residentialsecurity.ui.securityGuard.securityGuardFragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

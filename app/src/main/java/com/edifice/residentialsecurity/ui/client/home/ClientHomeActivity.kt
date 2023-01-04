@@ -1,5 +1,7 @@
-package com.edifice.residentialsecurity.ui.client.home
+/*package com.edifice.residentialsecurity.ui.client.home
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +15,11 @@ import com.edifice.residentialsecurity.util.SharedPref
 import com.google.gson.Gson
 
 class ClientHomeActivity : AppCompatActivity() {
+
+    companion object {
+        fun create(context: Context): Intent =
+            Intent(context, ClientHomeActivity::class.java)
+    }
 
     private lateinit var binding: ActivityClientHomeBinding
     var sharedPref: SharedPref? = null
@@ -60,4 +67,4 @@ class ClientHomeActivity : AppCompatActivity() {
         }
 
     }
-}
+}*/

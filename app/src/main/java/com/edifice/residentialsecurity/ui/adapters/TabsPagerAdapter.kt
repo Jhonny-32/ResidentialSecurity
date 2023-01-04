@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.edifice.residentialsecurity.ui.fragments.securityGuard.SecurityOrdersStatusFragment
+import com.edifice.residentialsecurity.ui.securityGuard.securityGuardFragment.SecurityOrdersStatusFragment
 
 class TabsPagerAdapter(
     fragmentManager : FragmentManager,

@@ -1,4 +1,4 @@
-package com.edifice.residentialsecurity.providers
+/*package com.edifice.residentialsecurity.providers
 
 import com.edifice.residentialsecurity.core.ApiRoutes
 import com.edifice.residentialsecurity.data.model.ResponseHttp
@@ -43,4 +43,4 @@ class UserProvider(val token: String? =null) {
         return userRoutesToken?.getDataResident(conjunto, token!!)
     }
 
-}
+}*/

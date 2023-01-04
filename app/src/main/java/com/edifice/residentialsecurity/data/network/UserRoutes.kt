@@ -32,8 +32,8 @@ interface UserRoutes {
 
     @FormUrlEncoded
     @POST("user/getDataResident")
-    fun getDataResident(
+    suspend fun getDataResident(
         @Field("conjunto") conjunto: String,
         @Header("Authorization") token: String
-    ): Call<ArrayList<User>>
+    ): ArrayList<User>
 }

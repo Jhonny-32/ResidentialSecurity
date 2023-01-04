@@ -1,5 +1,7 @@
 package com.edifice.residentialsecurity.ui
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
@@ -14,8 +16,14 @@ import com.edifice.residentialsecurity.core.ex.onTextChanged
 import com.edifice.residentialsecurity.databinding.ActivityRegisterBinding
 import com.edifice.residentialsecurity.data.model.Residential
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegisterResidentialActivity : AppCompatActivity() {
+
+    companion object {
+        fun create(context: Context): Intent = Intent(context, RegisterResidentialActivity::class.java)
+    }
 
     private lateinit var binding: ActivityRegisterBinding
     private val registerResidentialViewModel: RegisterResidentialViewModel by viewModels()
@@ -60,6 +68,10 @@ class RegisterResidentialActivity : AppCompatActivity() {
         }
     }
     private fun initObservers(){
+        registerResidentialViewModel.navigateSaveImage.observe(this){
+            //goToSaveImage()
+        }
+
         lifecycleScope.launchWhenStarted {
             registerResidentialViewModel.viewState.collect { viewState ->
                 updateUI(viewState)
@@ -75,6 +87,7 @@ class RegisterResidentialActivity : AppCompatActivity() {
                             Snackbar.LENGTH_LONG
                         ).show()
                         binding.progressBar.isVisible = false
+                        //goToSaveImage()
                     }
                     is ViewUiState.Error -> {
                         Snackbar.make(
@@ -115,5 +128,9 @@ class RegisterResidentialActivity : AppCompatActivity() {
             )
         }
     }
+    /*
+    private fun goToSaveImage(){
+        startActivity(SaveImageActivity.create(this))
+    }*/
 
 }

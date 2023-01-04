@@ -1,5 +1,7 @@
-package com.edifice.residentialsecurity.ui
+/*package com.edifice.residentialsecurity.ui
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +21,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SaveImageActivity : AppCompatActivity() {
+
+    companion object {
+        fun create(context: Context): Intent = Intent(context, MainActivity::class.java)
+    }
 
     val TAG = "SaveImageActivity"
 
@@ -105,4 +111,4 @@ class SaveImageActivity : AppCompatActivity() {
         sharedPref?.save("user", user)
     }
 
-}
+}*/

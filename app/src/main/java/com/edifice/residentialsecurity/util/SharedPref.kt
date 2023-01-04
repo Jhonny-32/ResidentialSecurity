@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import com.google.gson.Gson
+import javax.inject.Inject
 
 class SharedPref(activity: Activity) {
 
@@ -27,9 +28,8 @@ class SharedPref(activity: Activity) {
         }
     }
 
-    fun getData(key : String): String?{
-        val data = prefs?.getString(key, "")
-        return data
+    fun getData(key: String): String? {
+        return prefs?.getString(key, "")
     }
 
     fun remove(key: String){

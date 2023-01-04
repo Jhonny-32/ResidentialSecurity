@@ -11,17 +11,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.edifice.residentialsecurity.R
 import com.edifice.residentialsecurity.ui.home.AdministratorHomeActivity
-import com.edifice.residentialsecurity.ui.client.home.ClientHomeActivity
+//import com.edifice.residentialsecurity.ui.client.home.ClientHomeActivity
 import com.edifice.residentialsecurity.ui.manager.ManagerHomeActivity
 import com.edifice.residentialsecurity.ui.securityGuard.SecurityHomeActivity
 import com.edifice.residentialsecurity.databinding.CardviewRolesBinding
 import com.edifice.residentialsecurity.data.model.Rol
-import com.edifice.residentialsecurity.util.SharedPref
+import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
 import java.util.*
+import javax.inject.Inject
 
-class RolesAdapter(private val roles : ArrayList<Rol>, val context: Activity): RecyclerView.Adapter<RolesAdapter.RolesViewHolder>() {
+class RolesAdapter @Inject constructor(
+    private val roles : ArrayList<Rol>,
+    private val sharedPref: SharedPrefsRepositoryImpl,
+    val context: Activity
+    ): RecyclerView.Adapter<RolesAdapter.RolesViewHolder>() {
 
-    private val sharedPref = SharedPref(context)
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):RolesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -38,37 +43,35 @@ class RolesAdapter(private val roles : ArrayList<Rol>, val context: Activity): R
     }
 
     private fun goToToRol(rol: Rol){
-        if(rol.name == "ADMINISTRADOR"){
+        when (rol.name) {
+            "ADMINISTRADOR" -> {
 
-            sharedPref.save("rol", "ADMINISTRADOR")
-            val i = Intent( context , AdministratorHomeActivity::class.java)
-            context.startActivity(i)
+                sharedPref.save("rol", "ADMINISTRADOR")
+                val i = Intent( context , AdministratorHomeActivity::class.java)
+                context.startActivity(i)
+            }
+            "PROPIETARIO" -> {
+
+                sharedPref.save("rol", "PROPIETARIO")
+                //val i = Intent( context , ClientHomeActivity::class.java)
+                //context.startActivity(i)
+            }
+            "VIGILANTE" -> {
+                sharedPref.save("rol", "VIGILANTE")
+                val i = Intent( context , SecurityHomeActivity::class.java)
+                context.startActivity(i)
+            }
+            "MANAGER" -> {
+                sharedPref.save("rol", "MANAGER")
+                val i = Intent( context , ManagerHomeActivity::class.java)
+                context.startActivity(i)
+            }
         }
-        else if (rol.name =="PROPIETARIO"){
-
-            sharedPref.save("rol", "PROPIETARIO")
-
-            val i = Intent( context , ClientHomeActivity::class.java)
-            context.startActivity(i)
-        }
-        else if (rol.name == "VIGILANTE"){
-            sharedPref.save("rol", "VIGILANTE")
-
-            val i = Intent( context , SecurityHomeActivity::class.java)
-            context.startActivity(i)
-        }
-        else if (rol.name == "MANAGER"){
-            sharedPref.save("rol", "MANAGER")
-
-            val i = Intent( context , ManagerHomeActivity::class.java)
-            context.startActivity(i)
-        }
-
     }
 
     override fun getItemCount(): Int {return roles.size}
 
-    class RolesViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    inner class RolesViewHolder(view: View) : RecyclerView.ViewHolder(view){
         private val binding = CardviewRolesBinding.bind(view)
 
         val textViewRol : TextView = binding.textviewRol

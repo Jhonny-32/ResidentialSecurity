@@ -2,22 +2,29 @@ package com.edifice.residentialsecurity.ui
 
 import android.util.Patterns
 import androidx.core.text.isDigitsOnly
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.edifice.residentialsecurity.core.Event
 import com.edifice.residentialsecurity.core.ViewUiState
 import com.edifice.residentialsecurity.data.model.User
 import com.edifice.residentialsecurity.domain.RegisterUserCaseUse
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RegisterUserViewModel: ViewModel() {
+@HiltViewModel
+class RegisterUserViewModel @Inject constructor(
+    private val registerResidentialUseCase : RegisterUserCaseUse
+) : ViewModel() {
+
 
     private companion object {
         const val MIN_PASSWORD_LENGTH = 6
     }
-
-    private var registerResidentialUseCase = RegisterUserCaseUse()
 
     private val _registerUser = MutableStateFlow<ViewUiState>(ViewUiState.Empty)
     val registerUser : StateFlow<ViewUiState>
@@ -26,6 +33,10 @@ class RegisterUserViewModel: ViewModel() {
     private val _viewState = MutableStateFlow(RegisterUserViewState())
     val viewState : StateFlow<RegisterUserViewState>
         get() = _viewState
+
+    private val _navigateRegisterResidential = MutableLiveData<Event<Boolean>>()
+    val navigateRegisterResidential : LiveData<Event<Boolean>>
+        get() = _navigateRegisterResidential
 
 
     fun onSignInSelected(user: User){
@@ -43,7 +54,7 @@ class RegisterUserViewModel: ViewModel() {
             val register = registerResidentialUseCase.invoke(user)
             if (register?.isSuccessful == true){
                 _registerUser.value = ViewUiState.Success
-                //saveUserInSession(register.body().toString())
+                _navigateRegisterResidential.value = Event(true)
             }else{
                 _registerUser.value = ViewUiState.Error("Error al registrar el administrator")
             }

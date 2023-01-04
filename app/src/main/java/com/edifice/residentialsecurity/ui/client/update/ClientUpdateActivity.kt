@@ -1,4 +1,4 @@
-package com.edifice.residentialsecurity.ui.client.update
+/*package com.edifice.residentialsecurity.ui.client.update
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -134,4 +134,4 @@ class ClientUpdateActivity : AppCompatActivity() {
             })
         }
     }
-}
+}*/

@@ -1,4 +1,4 @@
-package com.edifice.residentialsecurity.ui.fragments.client
+/*package com.edifice.residentialsecurity.ui.fragments.client
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -44,4 +44,4 @@ class ClientOrdersFragment : Fragment() {
         }
     }
 
-}
+}*/

@@ -6,17 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.edifice.residentialsecurity.R
 import com.edifice.residentialsecurity.databinding.CardviewDataResidentBinding
 import com.edifice.residentialsecurity.data.model.Rol
 import com.edifice.residentialsecurity.data.model.User
 import com.edifice.residentialsecurity.util.SharedPref
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class DataResidentAdapter(private val context: FragmentActivity, private val data: ArrayList<User>): RecyclerView.Adapter<DataResidentAdapter.DataResidentViewHolder>() {
-
-    private val sharedPref = SharedPref(context)
+class DataResidentAdapter @Inject constructor(
+    private val context: FragmentActivity,
+    private val data: ArrayList<User>
+): RecyclerView.Adapter<DataResidentAdapter.DataResidentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):DataResidentViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -32,8 +35,7 @@ class DataResidentAdapter(private val context: FragmentActivity, private val dat
         holder.textViewApartament.text = dataResident.apartament
     }
 
-    private fun goToToRol(rol: Rol){
-    }
+
 
     override fun getItemCount(): Int {return data.size}
 

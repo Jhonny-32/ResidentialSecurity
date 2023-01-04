@@ -11,7 +11,7 @@ import com.edifice.residentialsecurity.databinding.FragmentClientProfileBinding
 import android.content.Intent
 import com.bumptech.glide.Glide
 import com.edifice.residentialsecurity.ui.MainActivity
-import com.edifice.residentialsecurity.ui.client.update.ClientUpdateActivity
+//import com.edifice.residentialsecurity.ui.client.update.ClientUpdateActivity
 import com.edifice.residentialsecurity.data.model.User
 import com.edifice.residentialsecurity.util.SharedPref
 import com.google.gson.Gson
@@ -65,8 +65,8 @@ class ClientProfileFragment : Fragment() {
     }
 
     private fun goToUpdate(){
-        val i = Intent(requireContext(), ClientUpdateActivity::class.java)
-        startActivity(i)
+        /*val i = Intent(requireContext(), ClientUpdateActivity::class.java)
+        startActivity(i)*/
     }
 
     private fun logout(){

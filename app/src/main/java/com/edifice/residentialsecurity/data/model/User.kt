@@ -2,6 +2,7 @@ package com.edifice.residentialsecurity.data.model
 
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
+import javax.inject.Inject
 
 class User(
     @SerializedName("id") val id: String? = null,
@@ -26,9 +27,6 @@ class User(
 
     fun isNotEmpty() = name.isNotEmpty() && lastname.isNotEmpty() && phone.isNotEmpty() && email.isNotEmpty() && dni.isNotEmpty() && password.isNotEmpty()
 
-    fun toJson(): String {
-        return Gson().toJson(this)
-    }
 
 
 

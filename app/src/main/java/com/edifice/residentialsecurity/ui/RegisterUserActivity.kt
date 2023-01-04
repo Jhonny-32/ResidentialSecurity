@@ -1,5 +1,7 @@
 package com.edifice.residentialsecurity.ui
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
@@ -14,10 +16,16 @@ import com.edifice.residentialsecurity.core.ex.onTextChanged
 import com.edifice.residentialsecurity.data.model.User
 import com.edifice.residentialsecurity.databinding.ActivityRegisterUserBinding
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class RegisterUserActivity : AppCompatActivity() {
+
+    companion object {
+        fun create(context: Context): Intent = Intent(context, RegisterUserActivity::class.java)
+    }
 
     private lateinit var binding: ActivityRegisterUserBinding
     private val registerUserViewModel: RegisterUserViewModel by viewModels()
@@ -71,12 +79,19 @@ class RegisterUserActivity : AppCompatActivity() {
                         password = binding.edittextPassword.toString()
                     )
                 )
+
             }
         }
 
     }
 
     private fun initObservers(){
+        registerUserViewModel.navigateRegisterResidential.observe(this){
+            it.getContentIfNotHandled()?.let {
+                goToRegisterResidential()
+            }
+        }
+
         lifecycleScope.launch {
             registerUserViewModel.viewState.collect{viewState ->
                 updateUI(viewState)
@@ -92,6 +107,7 @@ class RegisterUserActivity : AppCompatActivity() {
                             Snackbar.LENGTH_LONG
                         ).show()
                         binding.progressBar.isVisible = false
+                        goToRegisterResidential()
                     }
                     is ViewUiState.Error -> {
                         Snackbar.make(
@@ -140,6 +156,10 @@ class RegisterUserActivity : AppCompatActivity() {
                 )
             )
         }
+    }
+
+    private fun goToRegisterResidential(){
+        startActivity(RegisterResidentialActivity.create(this))
     }
 
 }

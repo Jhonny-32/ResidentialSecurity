@@ -1,21 +1,32 @@
 package com.edifice.residentialsecurity.ui
 
 import androidx.core.text.isDigitsOnly
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.edifice.residentialsecurity.core.Event
 import com.edifice.residentialsecurity.core.ViewUiState
 import com.edifice.residentialsecurity.data.model.Residential
 import com.edifice.residentialsecurity.domain.RegisterResidentialUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RegisterResidentialViewModel: ViewModel() {
+@HiltViewModel
+class RegisterResidentialViewModel @Inject constructor(
+    private val registerResidentialUseCase : RegisterResidentialUseCase
+) : ViewModel() {
 
     private companion object {
         const val MIN_PASSWORD_LENGTH = 6
     }
-    private var registerResidentialUseCase = RegisterResidentialUseCase()
+
+    private val _navigateSaveImage = MutableLiveData<Event<Boolean>>()
+    val navigateSaveImage : LiveData<Event<Boolean>>
+        get() = _navigateSaveImage
 
     private val _registerResidentialState = MutableStateFlow<ViewUiState>(ViewUiState.Empty)
     val loginUiState: StateFlow<ViewUiState>
@@ -40,6 +51,7 @@ class RegisterResidentialViewModel: ViewModel() {
             val register = registerResidentialUseCase(residential)
             if (register?.isSuccessful == true){
                 _registerResidentialState.value = ViewUiState.Success
+                _navigateSaveImage.value = Event(true)
             }else{
                 _registerResidentialState.value = ViewUiState.Error("Error al registrar el conjunto")
             }
