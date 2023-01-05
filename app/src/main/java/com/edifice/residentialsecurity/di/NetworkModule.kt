@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.edifice.residentialsecurity.data.model.Rol
 import com.edifice.residentialsecurity.data.model.User
+import com.edifice.residentialsecurity.data.model.UserDataResidential
 import com.edifice.residentialsecurity.data.network.ResidentialsRoutes
 import com.edifice.residentialsecurity.data.network.UserRoutes
 import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
@@ -47,7 +48,6 @@ object NetworkModule {
         val user = gson.fromJson(rolesJson, User::class.java)
         return user.roles!!
     }
-
 
 
     @Singleton

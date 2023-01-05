@@ -1,16 +1,20 @@
 package com.edifice.residentialsecurity.ui.securityGuard.securityGuardFragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.edifice.residentialsecurity.ui.adapters.DataResidentAdapter
 import com.edifice.residentialsecurity.databinding.FragmentSecurityDataResidentBinding
 import com.edifice.residentialsecurity.data.model.User
+import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
 import com.edifice.residentialsecurity.ui.securityGuard.SecurityViewModel
 import com.edifice.residentialsecurity.util.SharedPref
 import com.google.gson.Gson
@@ -23,32 +27,41 @@ class SecurityDataResidentFragment : Fragment() {
     private var _binding: FragmentSecurityDataResidentBinding?= null
     private val binding get() = _binding!!
 
+    @Inject
+    lateinit var sharedPref: SharedPrefsRepositoryImpl
 
-    private val securityViewModel: SecurityViewModel by viewModels()
-
-
+    lateinit var securityViewModel: SecurityViewModel
+    private lateinit var adapter: DataResidentAdapter
     var user : User? = null
-    var sharedPref: SharedPref? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSecurityDataResidentBinding.inflate(inflater, container, false)
-
-
-        binding.recyclerviewDataResident.layoutManager = LinearLayoutManager(requireContext())
-        sharedPref = SharedPref(requireActivity())
-
-
-        if(!user?.image.isNullOrBlank()){
-            Glide.with(requireContext()).load(user?.image).into(binding.circleimageUser)
-        }
-
+        securityViewModel = ViewModelProvider(this)[SecurityViewModel::class.java]
+        initUi()
         return binding.root
     }
 
 
+    private fun initUi(){
+        initObservers()
+    }
+
+    private fun initObservers() {
+        getUserFromSession()
+        binding.recyclerviewDataResident.layoutManager = LinearLayoutManager(requireContext())
+        securityViewModel.dataResidential()
+        securityViewModel.dataResident.observe(requireActivity(), Observer { data ->
+            adapter = DataResidentAdapter(data)
+            binding.recyclerviewDataResident.adapter = adapter
+            adapter.notifyDataSetChanged()
+        })
+        if(!user?.image.isNullOrBlank()){
+            Glide.with(requireContext()).load(user?.image).into(binding.circleimageUser)
+        }
+    }
 
     private fun getUserFromSession() {
         val gson = Gson()

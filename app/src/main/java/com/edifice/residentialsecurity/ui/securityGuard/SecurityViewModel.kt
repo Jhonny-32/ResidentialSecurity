@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide
 import com.edifice.residentialsecurity.data.model.User
 import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
 import com.edifice.residentialsecurity.domain.GetDataResidentialUseCase
@@ -38,13 +39,16 @@ class SecurityViewModel @Inject constructor(
                 conjunto =""
             }
             val data = getDataResidentialUseCase.invoke(conjunto, token)
-            if (!data.isNullOrEmpty()){
+            if (data?.isNotEmpty() == true){
                 _dataResident.value = data!!
             }
         }
     }
 
-
-
-
+     fun getUserFromSession() {
+        val gson = Gson()
+        if (!sharedPrefsRepositoryImpl?.getData("user").isNullOrBlank()) {
+            gson.fromJson(sharedPrefsRepositoryImpl?.getData("user"), User::class.java)
+        }
+    }
 }

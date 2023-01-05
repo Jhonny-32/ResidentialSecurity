@@ -12,12 +12,12 @@ import com.edifice.residentialsecurity.R
 import com.edifice.residentialsecurity.databinding.CardviewDataResidentBinding
 import com.edifice.residentialsecurity.data.model.Rol
 import com.edifice.residentialsecurity.data.model.User
+import com.edifice.residentialsecurity.data.model.UserDataResidential
 import com.edifice.residentialsecurity.util.SharedPref
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class DataResidentAdapter @Inject constructor(
-    private val context: FragmentActivity,
+class DataResidentAdapter(
     private val data: ArrayList<User>
 ): RecyclerView.Adapter<DataResidentAdapter.DataResidentViewHolder>() {
 

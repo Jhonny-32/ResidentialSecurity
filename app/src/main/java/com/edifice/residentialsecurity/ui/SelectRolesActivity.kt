@@ -20,7 +20,6 @@ class SelectRolesActivity : AppCompatActivity() {
     companion object {
         fun create(context: Context): Intent = Intent(context, SelectRolesActivity::class.java)
     }
-
     private lateinit var binding: ActivitySelectRolesBinding
     var user: User?= null
 
@@ -34,14 +33,17 @@ class SelectRolesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySelectRolesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initUi()
+    }
+    private fun initUi(){
+        initObservers()
+    }
 
-
-        binding.recyclerviewRoles.layoutManager = LinearLayoutManager(this)
+    private fun initObservers() {
         getUserFromSession()
-
         adapter = RolesAdapter(user?.roles!!, sharedPref,this )
+        binding.recyclerviewRoles.layoutManager = LinearLayoutManager(this)
         binding.recyclerviewRoles.adapter = adapter
-
     }
 
     private fun getUserFromSession(){

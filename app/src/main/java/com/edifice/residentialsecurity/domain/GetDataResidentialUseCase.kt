@@ -11,12 +11,7 @@ class GetDataResidentialUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(conjunto: String, token: String): ArrayList<User>? {
-        val response = repository.getDataResident(conjunto, token)
-        if (response?.isEmpty() == true) {
-            return response
-        } else {
-            throw Exception("Error al obtener los datos de los residentes")
-        }
+        return repository.getDataResident(conjunto, token)
     }
 
 }

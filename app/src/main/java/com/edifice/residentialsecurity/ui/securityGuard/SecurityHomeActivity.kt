@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.edifice.residentialsecurity.R
 import com.edifice.residentialsecurity.databinding.ActivitySecurityHomeBinding
 import com.edifice.residentialsecurity.ui.fragments.client.ClientProfileFragment
@@ -56,6 +57,7 @@ class SecurityHomeActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        getUserFromSession()
     }
 
     private fun openFragment(fragment: Fragment){
