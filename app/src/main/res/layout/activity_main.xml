@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    tools:context=".ui.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,6 +61,8 @@
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="5dp"
                     />
+
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -103,6 +105,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -162,6 +165,7 @@
                         android:textColor="@color/green"/>
 
                 </LinearLayout>
+
                 <Button
                     android:id="@+id/btn_login"
                     android:layout_width="match_parent"
@@ -204,9 +208,12 @@
 
         </FrameLayout>
 
-
     </LinearLayout>
 
-
-
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="center" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
