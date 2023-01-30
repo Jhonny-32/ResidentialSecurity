@@ -20,14 +20,14 @@ class TabsPagerAdapter(
         when(position){
             0 -> {
                 val bundle = Bundle()
-                bundle.putString("status", "ASIGNADA")
+                bundle.putString("statuss", "ASIGNADO")
                 val securityStatusFragment = SecurityOrdersStatusFragment()
                 securityStatusFragment.arguments = bundle
                 return securityStatusFragment
             }
             1 -> {
                 val bundle = Bundle()
-                bundle.putString("status", "ENTREGADA")
+                bundle.putString("statuss", "ENTREGADO")
                 val securityStatusFragment = SecurityOrdersStatusFragment()
                 securityStatusFragment.arguments = bundle
                 return securityStatusFragment

@@ -1,10 +1,9 @@
-package com.edifice.residentialsecurity.ui
+package com.edifice.residentialsecurity.ui.login
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -14,17 +13,15 @@ import com.edifice.residentialsecurity.core.ViewUiState
 import com.edifice.residentialsecurity.core.ex.dismissKeyboard
 import com.edifice.residentialsecurity.core.ex.loseFocusAfterAction
 import com.edifice.residentialsecurity.core.ex.onTextChanged
-import com.edifice.residentialsecurity.data.model.User
 import com.edifice.residentialsecurity.databinding.ActivityMainBinding
-import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
+import com.edifice.residentialsecurity.ui.register.registerUser.RegisterUserActivity
+import com.edifice.residentialsecurity.ui.SelectRolesActivity
+import com.edifice.residentialsecurity.ui.client.home.ClientHomeActivity
 import com.edifice.residentialsecurity.ui.home.AdministratorHomeActivity
 import com.edifice.residentialsecurity.ui.manager.ManagerHomeActivity
 import com.edifice.residentialsecurity.ui.securityGuard.SecurityHomeActivity
-import com.edifice.residentialsecurity.ui.securityGuard.SecurityViewModel
 import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -41,8 +38,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initUi()
         mainViewModel.getUserFromSession()
+        initUi()
+
     }
 
     private fun initUi(){
@@ -79,6 +77,30 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.navigateSecurity.observe(this){
             it.getContentIfNotHandled()?.let {
                 goToSecurity()
+            }
+        }
+
+        mainViewModel.navigateClient.observe(this){
+            it.getContentIfNotHandled()?.let {
+                goToClient()
+            }
+        }
+
+        mainViewModel.navigateAdministrator.observe(this){
+            it.getContentIfNotHandled()?.let {
+                goToAdministrator()
+            }
+        }
+
+        mainViewModel.navigateManager.observe(this){
+            it.getContentIfNotHandled()?.let {
+                goToManager()
+            }
+        }
+
+        mainViewModel.navigateSelectRol.observe(this){
+            it.getContentIfNotHandled()?.let {
+                goToSelectRol()
             }
         }
 
@@ -143,6 +165,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun goToSecurity() {
        startActivity(SecurityHomeActivity.create(this))
+    }
+
+    private fun goToClient() {
+        startActivity(ClientHomeActivity.create(this))
+    }
+
+    private fun goToAdministrator() {
+        startActivity(AdministratorHomeActivity.create(this))
+    }
+
+    private fun goToManager() {
+        startActivity(ManagerHomeActivity.create(this))
     }
 
 }

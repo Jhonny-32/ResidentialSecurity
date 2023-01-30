@@ -31,7 +31,7 @@
             android:name=".ui.securityGuard.SecurityHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.SaveImageActivity"
+            android:name=".ui.saveImage.SaveImageActivity"
             android:exported="true" />
         <activity
             android:name=".ui.home.AdministratorHomeActivity"
@@ -43,15 +43,16 @@
             android:name=".ui.client.home.ClientHomeActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.RegisterUserActivity"
+            android:name=".ui.register.registerUser.RegisterUserActivity"
             android:exported="true">
         </activity>
         <activity
-            android:name=".ui.RegisterResidentialActivity"
+            android:name=".ui.register.registerResidential.RegisterResidentialActivity"
             android:exported="true">
+
         </activity>
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.login.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.ResidentialSecurity.login">
             <intent-filter>

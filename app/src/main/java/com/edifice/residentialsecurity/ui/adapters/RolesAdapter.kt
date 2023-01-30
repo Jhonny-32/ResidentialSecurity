@@ -17,6 +17,7 @@ import com.edifice.residentialsecurity.ui.securityGuard.SecurityHomeActivity
 import com.edifice.residentialsecurity.databinding.CardviewRolesBinding
 import com.edifice.residentialsecurity.data.model.Rol
 import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
+import com.edifice.residentialsecurity.ui.client.home.ClientHomeActivity
 import java.util.*
 import javax.inject.Inject
 
@@ -45,16 +46,14 @@ class RolesAdapter @Inject constructor(
     private fun goToToRol(rol: Rol){
         when (rol.name) {
             "ADMINISTRADOR" -> {
-
                 sharedPref.save("rol", "ADMINISTRADOR")
                 val i = Intent( context , AdministratorHomeActivity::class.java)
                 context.startActivity(i)
             }
             "PROPIETARIO" -> {
-
                 sharedPref.save("rol", "PROPIETARIO")
-                //val i = Intent( context , ClientHomeActivity::class.java)
-                //context.startActivity(i)
+                val i = Intent( context , ClientHomeActivity::class.java)
+                context.startActivity(i)
             }
             "VIGILANTE" -> {
                 sharedPref.save("rol", "VIGILANTE")

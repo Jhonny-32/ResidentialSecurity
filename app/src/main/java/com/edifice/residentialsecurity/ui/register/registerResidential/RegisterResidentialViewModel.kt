@@ -1,5 +1,6 @@
-package com.edifice.residentialsecurity.ui
+package com.edifice.residentialsecurity.ui.register.registerResidential
 
+import android.util.Log
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,8 +9,13 @@ import androidx.lifecycle.viewModelScope
 import com.edifice.residentialsecurity.core.Event
 import com.edifice.residentialsecurity.core.ViewUiState
 import com.edifice.residentialsecurity.data.model.Residential
+import com.edifice.residentialsecurity.data.model.User
+import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
 import com.edifice.residentialsecurity.domain.RegisterResidentialUseCase
+import com.edifice.residentialsecurity.domain.SendRegisterUserUseCase
+import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -17,7 +23,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterResidentialViewModel @Inject constructor(
-    private val registerResidentialUseCase : RegisterResidentialUseCase
+    private val registerResidentialUseCase : RegisterResidentialUseCase,
+    private var user : User,
+    private var residential: Residential,
+    private val sendRegisterUserUseCase: SendRegisterUserUseCase,
+    private val sharedPrefsRepositoryImpl: SharedPrefsRepositoryImpl
+
 ) : ViewModel() {
 
     private companion object {
@@ -45,11 +56,14 @@ class RegisterResidentialViewModel @Inject constructor(
         }
     }
 
+
     private fun register(residential: Residential){
         viewModelScope.launch {
             _registerResidentialState.value = ViewUiState.Loading
             val register = registerResidentialUseCase(residential)
             if (register?.isSuccessful == true){
+                saveUserInSession(register.body()?.data.toString())
+                sendRegisterUserUseCase(getResidentData(),getUserData())
                 _registerResidentialState.value = ViewUiState.Success
                 _navigateSaveImage.value = Event(true)
             }else{
@@ -76,4 +90,31 @@ class RegisterResidentialViewModel @Inject constructor(
             isValidNit = isValidNumber(nit)
         )
     }
+    private fun saveUserInSession(data: String){
+        val gson = Gson()
+        val residential = gson.fromJson(data, Residential::class.java)
+        sharedPrefsRepositoryImpl.save("residential", residential)
+    }
+
+    fun getUserData() : String {
+        val gson = Gson()
+        if (!sharedPrefsRepositoryImpl?.getData("user").isNullOrBlank()) {
+            user = gson.fromJson(sharedPrefsRepositoryImpl?.getData("user"), User::class.java)
+            Log.d("JHONNY", user.id.toString())
+            return user?.id.toString()
+        }
+        return ""
+    }
+
+
+    fun getResidentData() : String {
+        val gson = Gson()
+        if (!sharedPrefsRepositoryImpl?.getData("residential").isNullOrBlank()) {
+            residential = gson.fromJson(sharedPrefsRepositoryImpl?.getData("residential"), Residential::class.java)
+            Log.d("JHONNY", residential.id.toString())
+            return residential?.id.toString()
+        }
+        return ""
+    }
+
 }

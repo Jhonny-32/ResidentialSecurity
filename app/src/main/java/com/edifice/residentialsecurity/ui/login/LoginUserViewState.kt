@@ -1,4 +1,4 @@
-package com.edifice.residentialsecurity.ui
+package com.edifice.residentialsecurity.ui.login
 
 data class LoginUserViewState(
     val isLoading: Boolean = false,

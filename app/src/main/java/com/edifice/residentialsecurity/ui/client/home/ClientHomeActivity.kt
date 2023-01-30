@@ -1,4 +1,4 @@
-/*package com.edifice.residentialsecurity.ui.client.home
+package com.edifice.residentialsecurity.ui.client.home
 
 import android.content.Context
 import android.content.Intent
@@ -8,12 +8,16 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import com.edifice.residentialsecurity.R
 import com.edifice.residentialsecurity.databinding.ActivityClientHomeBinding
-import com.edifice.residentialsecurity.ui.fragments.client.ClientOrdersFragment
-import com.edifice.residentialsecurity.ui.fragments.client.ClientProfileFragment
+import com.edifice.residentialsecurity.ui.client.clientFragment.ClientOrdersFragment
+import com.edifice.residentialsecurity.ui.profile.ClientProfileFragment
 import com.edifice.residentialsecurity.data.model.User
+import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
 import com.edifice.residentialsecurity.util.SharedPref
 import com.google.gson.Gson
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ClientHomeActivity : AppCompatActivity() {
 
     companion object {
@@ -22,7 +26,9 @@ class ClientHomeActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityClientHomeBinding
-    var sharedPref: SharedPref? = null
+
+    @Inject
+    lateinit var sharedPref: SharedPrefsRepositoryImpl
 
     private val TAG = "ClientHomeActivity"
 
@@ -30,10 +36,8 @@ class ClientHomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityClientHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        sharedPref = SharedPref(this)
         openFragment(ClientOrdersFragment())
         binding.bottomNavigations.setOnItemSelectedListener{
-
             when(it.itemId){
                 R.id.item_profile ->{
                     openFragment(ClientProfileFragment())
@@ -67,4 +71,4 @@ class ClientHomeActivity : AppCompatActivity() {
         }
 
     }
-}*/
+}

@@ -5,6 +5,10 @@
         android:icon="@drawable/ic_orders"
         android:title="Pedidos"/>
     <item
+        android:id="@+id/item_create_order"
+        android:icon="@drawable/ic_create_order"
+        android:title="Crear orden"/>
+    <item
         android:id="@+id/item_data_resident"
         android:icon="@drawable/ic_person"
         android:title="Datos Residente"/>

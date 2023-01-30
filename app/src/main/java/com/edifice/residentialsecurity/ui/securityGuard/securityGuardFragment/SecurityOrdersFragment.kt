@@ -29,10 +29,11 @@ class SecurityOrdersFragment : Fragment() {
         binding.tabLayout.setSelectedTabIndicatorColor(Color.BLACK)
         binding.tabLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
         binding.tabLayout.tabTextColors = ContextCompat.getColorStateList(requireContext(), R.color.black)
+        binding.tabLayout.maxScrollAmount
         binding.tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
         binding.tabLayout.isInlineLabel = true
 
-        var numberOfTabs = 4
+        val numberOfTabs = 2
 
         val adapter = TabsPagerAdapter(requireActivity().supportFragmentManager, lifecycle, numberOfTabs)
         binding.viewpager.adapter = adapter
@@ -42,7 +43,7 @@ class SecurityOrdersFragment : Fragment() {
 
             when(position){
                 0 -> {
-                    tab.text = "ASIGANADO"
+                    tab.text = "ASIGNADO"
                 }
                 1 -> {
                     tab.text = "ENTREGADO"

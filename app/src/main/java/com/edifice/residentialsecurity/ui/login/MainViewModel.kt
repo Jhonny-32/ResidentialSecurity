@@ -1,13 +1,7 @@
-package com.edifice.residentialsecurity.ui
+package com.edifice.residentialsecurity.ui.login
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.util.Log
 import android.util.Patterns
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,9 +11,6 @@ import com.edifice.residentialsecurity.core.ViewUiState
 import com.edifice.residentialsecurity.data.model.User
 import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
 import com.edifice.residentialsecurity.domain.LoginUseCase
-import com.edifice.residentialsecurity.ui.home.AdministratorHomeActivity
-import com.edifice.residentialsecurity.ui.manager.ManagerHomeActivity
-import com.edifice.residentialsecurity.ui.securityGuard.SecurityHomeActivity
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,6 +30,18 @@ class MainViewModel @Inject constructor(
     private val _navigateSecurity = MutableLiveData<Event<Boolean>>()
     val navigateSecurity : LiveData<Event<Boolean>>
         get() = _navigateSecurity
+
+    private val _navigateAdministrator = MutableLiveData<Event<Boolean>>()
+    val navigateAdministrator : LiveData<Event<Boolean>>
+        get() = _navigateAdministrator
+
+    private val _navigateClient = MutableLiveData<Event<Boolean>>()
+    val navigateClient : LiveData<Event<Boolean>>
+        get() = _navigateClient
+
+    private val _navigateManager = MutableLiveData<Event<Boolean>>()
+    val navigateManager : LiveData<Event<Boolean>>
+        get() = _navigateManager
 
     private val _navigateSelectRol = MutableLiveData<Event<Boolean>>()
     val navigateSelectRol : LiveData<Event<Boolean>>
@@ -87,8 +90,20 @@ class MainViewModel @Inject constructor(
     fun onRegisterSelected(){
         _navigateRegister.value = Event(true)
     }
-    fun onSecurityGuard(){
+    private fun onSecurityGuard(){
         _navigateSecurity.value = Event(true)
+    }
+
+    private fun onAdministrator(){
+        _navigateAdministrator.value = Event(true)
+    }
+
+    private fun onClient(){
+        _navigateClient.value = Event(true)
+    }
+
+    private fun onManager(){
+        _navigateManager.value = Event(true)
     }
 
     private fun isValidOrEmptyEmail(email: String) =
@@ -102,7 +117,9 @@ class MainViewModel @Inject constructor(
         val user = gson.fromJson(data, User::class.java)
         sharedPrefsRepositoryImpl.save("user", user)
 
-        if (user.roles?.size!! >= 1){
+        if (user.roles?.size!! > 1){
+            _navigateSelectRol.value = Event(true)
+        }else{
             _navigateSelectRol.value = Event(true)
         }
     }
@@ -114,22 +131,23 @@ class MainViewModel @Inject constructor(
             gson.fromJson(sharedPrefsRepositoryImpl.getData("user"), User::class.java)
             if (!sharedPrefsRepositoryImpl.getData("rol").isNullOrBlank()) {
                 // SI EL USUARIO SELECCIONO EL ROL
+                    Log.d("PRUEBA",sharedPrefsRepositoryImpl.getData("rol").toString() )
                 when (sharedPrefsRepositoryImpl.getData("rol")?.replace("\"", "")) {
                     "ADMINISTRADOR" -> {
-
+                        onAdministrator()
                     }
                     "PROPIETARIO" -> {
-                        Log.d("JHONNY", "USER PROPIETARIO")
+                        onClient()
                     }
                     "VIGILANTE" -> {
                         onSecurityGuard()
                     }
                     "MANAGER" -> {
-
+                        onManager()
                     }
                 }
             } else {
-                Log.d("JHONNY", "USER PROPIETARIO")
+                onSecurityGuard()
             }
         }
     }

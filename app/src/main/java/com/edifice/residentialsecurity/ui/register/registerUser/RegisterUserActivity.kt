@@ -1,4 +1,4 @@
-package com.edifice.residentialsecurity.ui
+package com.edifice.residentialsecurity.ui.register.registerUser
 
 import android.content.Context
 import android.content.Intent
@@ -15,9 +15,9 @@ import com.edifice.residentialsecurity.core.ex.loseFocusAfterAction
 import com.edifice.residentialsecurity.core.ex.onTextChanged
 import com.edifice.residentialsecurity.data.model.User
 import com.edifice.residentialsecurity.databinding.ActivityRegisterUserBinding
+import com.edifice.residentialsecurity.ui.register.registerResidential.RegisterResidentialActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -76,7 +76,7 @@ class RegisterUserActivity : AppCompatActivity() {
                         phone = binding.edittextPhone.text.toString(),
                         email = binding.edittextEmail.text.toString(),
                         dni = binding.edittextDni.text.toString(),
-                        password = binding.edittextPassword.toString()
+                        password = binding.edittextPassword.text.toString()
                     )
                 )
 

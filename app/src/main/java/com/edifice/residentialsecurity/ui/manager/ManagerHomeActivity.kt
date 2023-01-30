@@ -4,17 +4,68 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.fragment.app.Fragment
 import com.edifice.residentialsecurity.R
-import com.edifice.residentialsecurity.ui.MainActivity
+import com.edifice.residentialsecurity.data.model.User
+import com.edifice.residentialsecurity.databinding.ActivityManagerHomeBinding
+import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
+import com.edifice.residentialsecurity.ui.fragments.manager.ManagerMapsFragment
+import com.edifice.residentialsecurity.ui.login.MainActivity
+import com.edifice.residentialsecurity.ui.profile.ClientProfileFragment
+import com.edifice.residentialsecurity.util.SharedPref
+import com.google.gson.Gson
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ManagerHomeActivity : AppCompatActivity() {
 
     companion object {
-        fun create(context: Context): Intent = Intent(context, MainActivity::class.java)
+        fun create(context: Context): Intent = Intent(context, ManagerHomeActivity::class.java)
     }
+
+    private lateinit var binding: ActivityManagerHomeBinding
+
+    @Inject
+    lateinit var sharedPref: SharedPrefsRepositoryImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_manager_home)
+        binding = ActivityManagerHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        openFragment(ManagerMapsFragment())
+        binding.bottomNavigations.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.item_maps -> {
+                    openFragment(ManagerMapsFragment())
+                    true
+                }
+                R.id.item_profile -> {
+                    openFragment(ClientProfileFragment())
+                    true
+                }
+                else -> false
+            }
+        }
+        getUserFromSession()
+
+    }
+
+    private fun openFragment(fragment: Fragment){
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+    private fun getUserFromSession(){
+        val sharedPref = SharedPref(this)
+        val gson = Gson()
+
+        if(!sharedPref.getData("user").isNullOrBlank()){
+            val user = gson.fromJson(sharedPref.getData("user"), User::class.java)
+        }
+
     }
 }

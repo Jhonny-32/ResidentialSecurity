@@ -1,4 +1,4 @@
-/*package com.edifice.residentialsecurity.ui.client.update
+package com.edifice.residentialsecurity.ui.client.update
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,26 +6,35 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import com.bumptech.glide.Glide
+import com.edifice.residentialsecurity.R
 import com.edifice.residentialsecurity.databinding.ActivityClientUpdateBinding
 import com.edifice.residentialsecurity.data.model.ResponseHttp
 import com.edifice.residentialsecurity.data.model.User
-import com.edifice.residentialsecurity.providers.UserProvider
+import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
+import com.edifice.residentialsecurity.ui.register.registerResidential.RegisterResidentialViewModel
 import com.edifice.residentialsecurity.util.SharedPref
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ClientUpdateActivity : AppCompatActivity() {
 
-    val TAG = "ClientUpdateActivity"
-    var sharedPref: SharedPref? = null
     var user : User? = null
     private var imageFile: File? = null
-    var usersProvider : UserProvider?=null
+
+    private val clientUpdateViewModel : ClientUpdateViewModel by viewModels()
+
+    @Inject
+    lateinit var sharedPref: SharedPrefsRepositoryImpl
 
 
     private lateinit var binding: ActivityClientUpdateBinding
@@ -34,11 +43,8 @@ class ClientUpdateActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityClientUpdateBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        sharedPref = SharedPref(this)
-
         getUserFromSession()
-        usersProvider = UserProvider(user?.sessionToken)
+
 
         binding.edittextName.setText(user?.name)
         binding.edittextLastname.setText(user?.lastname)
@@ -58,11 +64,6 @@ class ClientUpdateActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveUserInSession(data: String){
-        val gson = Gson()
-        val user = gson.fromJson(data, User::class.java)
-        sharedPref?.save("user", user)
-    }
     private val startImageForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         val resultCode = result.resultCode
         val data = result.data
@@ -76,7 +77,6 @@ class ClientUpdateActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "La tarea se cancelo", Toast.LENGTH_LONG).show()
         }
-
     }
 
     private fun selectImage() {
@@ -89,49 +89,15 @@ class ClientUpdateActivity : AppCompatActivity() {
             }
     }
     private fun updateData(){
-
         user?.name = binding.edittextName.text.toString()
         user?.lastname = binding.edittextLastname.text.toString()
         user?.phone = binding.edittextPhone.text.toString()
 
         if (imageFile != null){
-            usersProvider?.update(imageFile!!, user!!)?.enqueue(object : Callback<ResponseHttp> {
-                override fun onResponse(call: Call<ResponseHttp>, response: Response<ResponseHttp>) {
-                    Log.d(TAG, "Response: ${response}")
-                    Log.d(TAG, "Body ${response.body()}")
-
-                    Toast.makeText(this@ClientUpdateActivity, response.body()?.message, Toast.LENGTH_SHORT).show()
-                    if(response.body()?.isSuccess == true){
-                        saveUserInSession(response.body()?.data.toString())
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
-                    Log.d(TAG, "Error: ${t.message}")
-                    Toast.makeText(this@ClientUpdateActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
-                }
-
-            })
+            clientUpdateViewModel?.updateUserImage(imageFile!!, user!!, user?.sessionToken!!)
         }
         else{
-            usersProvider?.updateWithOutImage(user!!)?.enqueue(object : Callback<ResponseHttp> {
-                override fun onResponse(call: Call<ResponseHttp>, response: Response<ResponseHttp>) {
-                    Log.d(TAG, "Response: ${response}")
-                    Log.d(TAG, "Body ${response.body()}")
-
-                    Toast.makeText(this@ClientUpdateActivity, response.body()?.message, Toast.LENGTH_SHORT).show()
-                    if(response.body()?.isSuccess == true){
-                        saveUserInSession(response.body()?.data.toString())
-                    }
-
-                }
-
-                override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
-                    Log.d(TAG, "Error: ${t.message}")
-                    Toast.makeText(this@ClientUpdateActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
-                }
-
-            })
+            clientUpdateViewModel?.updateUser(user!!, user?.sessionToken!!)
         }
     }
-}*/
+}

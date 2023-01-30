@@ -1,27 +1,22 @@
 package com.edifice.residentialsecurity.di
 
-import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import com.edifice.residentialsecurity.data.model.Residential
 import com.edifice.residentialsecurity.data.model.Rol
 import com.edifice.residentialsecurity.data.model.User
-import com.edifice.residentialsecurity.data.model.UserDataResidential
+import com.edifice.residentialsecurity.data.network.OrderRoutes
 import com.edifice.residentialsecurity.data.network.ResidentialsRoutes
 import com.edifice.residentialsecurity.data.network.UserRoutes
 import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
-import com.edifice.residentialsecurity.domain.GetDataResidentialUseCase
-import com.edifice.residentialsecurity.ui.MainActivity
+import com.edifice.residentialsecurity.ui.login.MainActivity
 import com.google.gson.Gson
 import dagger.Component
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -35,7 +30,7 @@ object NetworkModule {
     @Provides
     fun provideRetrofit():Retrofit{
         return Retrofit.Builder()
-            .baseUrl("http://192.168.0.2:3000/api/")
+            .baseUrl("http://192.168.0.9:3000/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -64,8 +59,26 @@ object NetworkModule {
 
     @Singleton
     @Provides
+    fun provideOrderApi(retrofit: Retrofit):OrderRoutes{
+        return retrofit.create(OrderRoutes::class.java)
+    }
+
+    @Singleton
+    @Provides
     fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
         return context.getSharedPreferences("com.edifice.residentialsecurity", Context.MODE_PRIVATE)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUser(): User {
+        return User(name = "", lastname = "", phone = "", email = "", dni = "", password = "")
+    }
+
+    @Singleton
+    @Provides
+    fun provideResidential():Residential{
+        return Residential(id="", name = "", nit = "", address = "", lat = 0.0)
     }
 
 

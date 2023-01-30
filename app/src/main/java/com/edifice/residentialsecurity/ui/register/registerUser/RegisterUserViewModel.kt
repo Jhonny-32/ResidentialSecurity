@@ -1,4 +1,4 @@
-package com.edifice.residentialsecurity.ui
+package com.edifice.residentialsecurity.ui.register.registerUser
 
 import android.util.Patterns
 import androidx.core.text.isDigitsOnly
@@ -9,7 +9,9 @@ import androidx.lifecycle.viewModelScope
 import com.edifice.residentialsecurity.core.Event
 import com.edifice.residentialsecurity.core.ViewUiState
 import com.edifice.residentialsecurity.data.model.User
+import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
 import com.edifice.residentialsecurity.domain.RegisterUserCaseUse
+import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,11 +20,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterUserViewModel @Inject constructor(
-    private val registerResidentialUseCase : RegisterUserCaseUse
+    private val registerResidentialUseCase : RegisterUserCaseUse,
+    private val sharedPrefsRepositoryImpl: SharedPrefsRepositoryImpl
+
 ) : ViewModel() {
 
 
-    private companion object {
+    companion object {
         const val MIN_PASSWORD_LENGTH = 6
     }
 
@@ -53,6 +57,7 @@ class RegisterUserViewModel @Inject constructor(
             _registerUser.value = ViewUiState.Loading
             val register = registerResidentialUseCase.invoke(user)
             if (register?.isSuccessful == true){
+                saveUserInSession(register.body()?.data.toString())
                 _registerUser.value = ViewUiState.Success
                 _navigateRegisterResidential.value = Event(true)
             }else{
@@ -87,12 +92,11 @@ class RegisterUserViewModel @Inject constructor(
             isValidPhone = isValidNumber(phone)
         )
     }
-    /*
+
     private fun saveUserInSession(data: String){
-        val sharedPref = SharedPref(Activity())
         val gson = Gson()
         val user = gson.fromJson(data, User::class.java)
-        sharedPref.save("user", user)
-    }*/
+        sharedPrefsRepositoryImpl.save("user", user)
+    }
 
 }

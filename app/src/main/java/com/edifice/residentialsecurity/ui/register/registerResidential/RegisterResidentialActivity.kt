@@ -1,4 +1,4 @@
-package com.edifice.residentialsecurity.ui
+package com.edifice.residentialsecurity.ui.register.registerResidential
 
 import android.content.Context
 import android.content.Intent
@@ -15,8 +15,13 @@ import com.edifice.residentialsecurity.core.ex.loseFocusAfterAction
 import com.edifice.residentialsecurity.core.ex.onTextChanged
 import com.edifice.residentialsecurity.databinding.ActivityRegisterBinding
 import com.edifice.residentialsecurity.data.model.Residential
+import com.edifice.residentialsecurity.data.model.User
+import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
+import com.edifice.residentialsecurity.ui.saveImage.SaveImageActivity
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RegisterResidentialActivity : AppCompatActivity() {
@@ -24,9 +29,13 @@ class RegisterResidentialActivity : AppCompatActivity() {
     companion object {
         fun create(context: Context): Intent = Intent(context, RegisterResidentialActivity::class.java)
     }
+    @Inject
+    lateinit var sharedPref: SharedPrefsRepositoryImpl
 
     private lateinit var binding: ActivityRegisterBinding
     private val registerResidentialViewModel: RegisterResidentialViewModel by viewModels()
+
+    var user : User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +78,7 @@ class RegisterResidentialActivity : AppCompatActivity() {
     }
     private fun initObservers(){
         registerResidentialViewModel.navigateSaveImage.observe(this){
-            //goToSaveImage()
+            goToSaveImage()
         }
 
         lifecycleScope.launchWhenStarted {
@@ -87,7 +96,7 @@ class RegisterResidentialActivity : AppCompatActivity() {
                             Snackbar.LENGTH_LONG
                         ).show()
                         binding.progressBar.isVisible = false
-                        //goToSaveImage()
+                        goToSaveImage()
                     }
                     is ViewUiState.Error -> {
                         Snackbar.make(
@@ -128,9 +137,10 @@ class RegisterResidentialActivity : AppCompatActivity() {
             )
         }
     }
-    /*
+
     private fun goToSaveImage(){
         startActivity(SaveImageActivity.create(this))
-    }*/
+    }
+
 
 }

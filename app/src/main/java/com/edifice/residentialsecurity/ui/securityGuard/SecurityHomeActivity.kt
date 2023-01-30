@@ -5,19 +5,19 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.edifice.residentialsecurity.R
 import com.edifice.residentialsecurity.databinding.ActivitySecurityHomeBinding
-import com.edifice.residentialsecurity.ui.fragments.client.ClientProfileFragment
+import com.edifice.residentialsecurity.ui.profile.ClientProfileFragment
 import com.edifice.residentialsecurity.ui.securityGuard.securityGuardFragment.SecurityDataResidentFragment
 import com.edifice.residentialsecurity.ui.securityGuard.securityGuardFragment.SecurityOrdersFragment
 import com.edifice.residentialsecurity.data.model.User
-import com.edifice.residentialsecurity.ui.MainViewModel
+import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
+import com.edifice.residentialsecurity.ui.securityGuard.securityGuardFragment.SecurityCreateOrderFragment
 import com.edifice.residentialsecurity.util.SharedPref
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SecurityHomeActivity : AppCompatActivity() {
@@ -28,7 +28,9 @@ class SecurityHomeActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivitySecurityHomeBinding
-    var sharedPref: SharedPref? = null
+
+    @Inject
+    lateinit var sharedPref: SharedPrefsRepositoryImpl
 
     private val TAG = "SecurityHomeActivity"
 
@@ -38,12 +40,15 @@ class SecurityHomeActivity : AppCompatActivity() {
 
         binding = ActivitySecurityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        sharedPref = SharedPref(this)
         openFragment(SecurityOrdersFragment())
         binding.bottomNavigations.setOnItemSelectedListener{
             when(it.itemId){
                 R.id.item_orders ->{
                     openFragment(SecurityOrdersFragment())
+                    true
+                }
+                R.id.item_create_order ->{
+                    openFragment(SecurityCreateOrderFragment())
                     true
                 }
                 R.id.item_data_resident ->{

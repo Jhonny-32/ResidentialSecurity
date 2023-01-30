@@ -29,13 +29,8 @@ class User(
 
     fun isNotEmpty() = name.isNotEmpty() && lastname.isNotEmpty() && phone.isNotEmpty() && email.isNotEmpty() && dni.isNotEmpty() && password.isNotEmpty()
 
-
+    fun toJson(): String{
+        return Gson().toJson(this)
+    }
 }
-
-data class UserDataResidential(
-    @SerializedName("name") var name: String,
-    @SerializedName("phone") var phone: String,
-    @SerializedName("tower") var tower: String ? = null,
-    @SerializedName("apartament") var apartament: String? = null
-)
 

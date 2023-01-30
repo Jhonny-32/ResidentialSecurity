@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.RegisterResidentialActivity">
+    tools:context=".ui.register.registerResidential.RegisterResidentialActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -116,6 +116,8 @@
             android:textColor="@color/white"
             android:text="Registrarse"
             />
+
+
     </LinearLayout>
 
     <ProgressBar

@@ -18,17 +18,17 @@ interface UserRoutes {
 
     @Multipart
     @PUT("users/update")
-    fun update(
+    suspend fun update(
         @Part image: MultipartBody.Part,
         @Part("user") user : RequestBody,
         @Header("Authorization") token: String
-    ): Call<ResponseHttp>
+    ): Response<ResponseHttp>
 
     @PUT("users/updateWithOut")
-    fun updateWithOutImage(
+    suspend fun updateWithOutImage(
         @Body user : User,
         @Header("Authorization") token: String
-    ): Call<ResponseHttp>
+    ): Response<ResponseHttp>
 
     @FormUrlEncoded
     @POST("user/getDataResident")

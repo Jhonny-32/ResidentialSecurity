@@ -1,4 +1,4 @@
-package com.edifice.residentialsecurity.ui
+package com.edifice.residentialsecurity.ui.register.registerResidential
 
 data class RegisterViewState(
     val isLoading: Boolean = false,
