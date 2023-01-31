@@ -12,7 +12,8 @@ data class Order(
     @SerializedName("image3") val image3: String?=null,
     @SerializedName("descriptions") val descriptions: String,
     @SerializedName("statuss") val status: String,
-    @SerializedName("timestamp") val timestamp: Long = 0,
+    @SerializedName("name") val name: String?=null,
+    @SerializedName("timestamp") val timestamp: String? = null,
     @SerializedName("client") val client: User ?=null,
     @SerializedName("sets") val sets: Sets ?= null
 ) {

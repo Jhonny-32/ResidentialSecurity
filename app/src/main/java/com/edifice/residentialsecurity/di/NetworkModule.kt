@@ -7,6 +7,7 @@ import com.edifice.residentialsecurity.data.model.Rol
 import com.edifice.residentialsecurity.data.model.User
 import com.edifice.residentialsecurity.data.network.OrderRoutes
 import com.edifice.residentialsecurity.data.network.ResidentialsRoutes
+import com.edifice.residentialsecurity.data.network.SetsRoutes
 import com.edifice.residentialsecurity.data.network.UserRoutes
 import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
 import com.edifice.residentialsecurity.ui.login.MainActivity
@@ -61,6 +62,12 @@ object NetworkModule {
     @Provides
     fun provideOrderApi(retrofit: Retrofit):OrderRoutes{
         return retrofit.create(OrderRoutes::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSetsApi(retrofit: Retrofit):SetsRoutes{
+        return retrofit.create(SetsRoutes::class.java)
     }
 
     @Singleton

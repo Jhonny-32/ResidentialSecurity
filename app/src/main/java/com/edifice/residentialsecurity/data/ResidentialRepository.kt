@@ -1,9 +1,6 @@
 package com.edifice.residentialsecurity.data
 
-import com.edifice.residentialsecurity.data.model.Order
-import com.edifice.residentialsecurity.data.model.Residential
-import com.edifice.residentialsecurity.data.model.ResponseHttp
-import com.edifice.residentialsecurity.data.model.User
+import com.edifice.residentialsecurity.data.model.*
 import com.edifice.residentialsecurity.data.network.ResidentialService
 import retrofit2.Call
 import retrofit2.Response
@@ -55,6 +52,10 @@ class ResidentialRepository @Inject constructor(private val residentialApi : Res
         token: String
     ):ArrayList<Order>{
         return residentialApi.getOrdersByClienAndStatus(status, conjunto, idClient, token)
+    }
+
+    suspend fun getAllSets(cojunto: String, token: String):ArrayList<Sets>{
+        return residentialApi.getAllSets(cojunto, token)
     }
 
 }

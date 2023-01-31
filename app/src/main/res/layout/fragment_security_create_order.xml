@@ -6,27 +6,61 @@
 	android:layout_height="match_parent"
 	tools:context=".ui.securityGuard.securityGuardFragment.SecurityCreateOrderFragment">
 
+
+
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:orientation="vertical">
-
-		<com.google.android.material.textfield.TextInputLayout
+		<Spinner
+			android:id="@+id/spinner_data_client"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="25dp"
-			android:layout_marginTop="50dp"
-			android:layout_marginRight="25dp"
-			style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-			android:hint="idSets">
+			android:layout_margin="25dp"
+			style="@style/spinner_style"/>
 
-			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/edittext_idSets"
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+			<com.google.android.material.textfield.TextInputLayout
+				android:layout_width="280dp"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="25dp"
+				android:layout_marginTop="5dp"
+				style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+				android:hint="Nombre residente">
+
+				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/edittext_name_resident"
+					android:layout_width="280dp"
+					android:layout_height="wrap_content"
+					android:inputType="text"
+					android:textColor="@color/black"
+					android:enabled="false"/>
+
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<com.google.android.material.textfield.TextInputLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:inputType="text" />
+				android:layout_marginLeft="5dp"
+				android:layout_marginTop="5dp"
+				android:layout_marginRight="25dp"
+				style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-		</com.google.android.material.textfield.TextInputLayout>
+				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/edittext_idUser"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:enabled="false"
+					android:textColor="@color/black"
+					android:inputType="text" />
+
+			</com.google.android.material.textfield.TextInputLayout>
+
+		</LinearLayout>
+
 
 		<com.google.android.material.textfield.TextInputLayout
 			android:layout_width="match_parent"
@@ -35,66 +69,37 @@
 			android:layout_marginTop="10dp"
 			android:layout_marginRight="25dp"
 			style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-			android:hint="idUser">
-
-			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/edittext_idUser"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:inputType="text" />
-
-		</com.google.android.material.textfield.TextInputLayout>
-
-		<com.google.android.material.textfield.TextInputLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginLeft="25dp"
-			android:layout_marginTop="10dp"
-			android:layout_marginRight="25dp"
-			style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-			android:hint="Status">
+			android:hint="Estado">
 
 			<com.google.android.material.textfield.TextInputEditText
 				android:id="@+id/edittext_status"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:inputType="text" />
+				android:inputType="text"
+				android:text="ASIGNADO"
+				android:enabled="false"/>
 
 		</com.google.android.material.textfield.TextInputLayout>
 
 		<com.google.android.material.textfield.TextInputLayout
+			style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="159dp"
 			android:layout_marginLeft="25dp"
 			android:layout_marginTop="10dp"
 			android:layout_marginRight="25dp"
+			android:hint="Descripción"
 			app:counterEnabled="true"
-			app:counterMaxLength="255"
-			style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-			android:hint="Descripcion">
+			app:counterMaxLength="180">
 
 			<com.google.android.material.textfield.TextInputEditText
 				android:id="@+id/edittext_description"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:inputType="textMultiLine"/>
-
-		</com.google.android.material.textfield.TextInputLayout>
-
-		<com.google.android.material.textfield.TextInputLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginLeft="25dp"
-			android:layout_marginTop="10dp"
-			android:layout_marginRight="25dp"
-			style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-			android:hint="Precio del Producto">
-
-			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/edittext_price"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:inputType="phone"/>
+				android:layout_height="129dp"
+				android:gravity="top|start"
+				android:inputType="textMultiLine"
+				android:maxLength="180"
+				android:maxLines="5" />
 
 		</com.google.android.material.textfield.TextInputLayout>
 
@@ -128,12 +133,6 @@
 				android:layout_marginRight="10dp"/>
 
 		</LinearLayout>
-
-		<Spinner
-			android:id="@+id/spinner_categories"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_margin="20dp"/>
 
 	</LinearLayout>
 

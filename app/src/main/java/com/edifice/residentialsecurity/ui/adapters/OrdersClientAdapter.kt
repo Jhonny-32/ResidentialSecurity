@@ -1,6 +1,7 @@
 package com.edifice.residentialsecurity.ui.adapters
 
 import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.edifice.residentialsecurity.R
 import com.edifice.residentialsecurity.data.model.Order
+import com.edifice.residentialsecurity.ui.client.ClientOrderDetailActivity
 
 
 class OrdersClientAdapter(val context: Activity, private val orders: ArrayList<Order>) :
@@ -33,7 +35,14 @@ class OrdersClientAdapter(val context: Activity, private val orders: ArrayList<O
         holder.textViewtower.text = "${order.sets?.tower}"
         holder.textViewapartament.text = "${order.sets?.apartament}"
 
+        holder.itemView.setOnClickListener { goToOrderDetail(order) }
 
+    }
+
+    private fun goToOrderDetail(order: Order) {
+        val i = Intent(context, ClientOrderDetailActivity::class.java)
+        i.putExtra("order", order.toJson())
+        context.startActivity(i)
     }
 
     class OrdersViewHolder(view: View) : RecyclerView.ViewHolder(view) {

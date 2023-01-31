@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".ui.client.ClientOrderDetailActivity">
+
+
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+
+		<include layout="@layout/action_bar_simple"/>
+
+		<com.denzcoskun.imageslider.ImageSlider
+			android:id="@+id/imageslider"
+			android:layout_width="wrap_content"
+			android:layout_height="300dp"
+			app:iss_auto_cycle="true"
+			app:iss_delay="0"
+			app:iss_period="5000" />
+
+		<TextView
+			android:id="@+id/texview_name"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="25dp"
+			android:layout_marginTop="15dp"
+			android:layout_marginRight="25dp"
+			android:text="Descripción: "
+			android:textColor="@color/black"
+			android:textSize="20sp" />
+
+
+		<TextView
+			android:id="@+id/texview_description"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="25dp"
+			android:layout_marginTop="15dp"
+			android:layout_marginRight="25dp"
+			android:maxLength="180"
+			android:maxLines="5"
+			android:text="text"
+			android:textSize="16sp" />
+
+
+
+	</LinearLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="bottom"
+		android:orientation="vertical">
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+			android:background="@color/gray" />
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_marginTop="10dp"
+			android:layout_marginRight="20dp"
+			android:orientation="horizontal">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Residente: "
+				android:textStyle="bold" />
+
+			<TextView
+				android:id="@+id/textview_client"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Nombre del cliente " />
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_marginTop="10dp"
+			android:layout_marginRight="20dp"
+			android:orientation="horizontal">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Conjunto: "
+				android:textStyle="bold" />
+
+			<TextView
+				android:id="@+id/textview_residential"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Direccion de entrega " />
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_marginTop="10dp"
+			android:layout_marginRight="20dp"
+			android:orientation="horizontal">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Fecha del Pedido: "
+				android:textStyle="bold" />
+
+			<TextView
+				android:id="@+id/textview_date"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="00:00:00" />
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_marginTop="10dp"
+			android:layout_marginRight="20dp"
+			android:layout_marginBottom="20dp"
+			android:orientation="horizontal">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Estado del Pedido: "
+				android:textStyle="bold" />
+
+			<TextView
+				android:id="@+id/textview_status"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Estado " />
+
+		</LinearLayout>
+	</LinearLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

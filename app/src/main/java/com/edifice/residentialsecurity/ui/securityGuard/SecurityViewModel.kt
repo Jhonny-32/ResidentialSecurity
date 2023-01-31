@@ -7,8 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.edifice.residentialsecurity.data.model.Order
+import com.edifice.residentialsecurity.data.model.Sets
 import com.edifice.residentialsecurity.data.model.User
 import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
+import com.edifice.residentialsecurity.domain.GetAllSetsUseCase
 import com.edifice.residentialsecurity.domain.GetDataResidentialUseCase
 import com.edifice.residentialsecurity.domain.GetOrderByStatusUseCase
 import com.edifice.residentialsecurity.domain.SendOrderUseCase
@@ -24,6 +26,7 @@ class SecurityViewModel @Inject constructor(
     private val getDataResidentialUseCase: GetDataResidentialUseCase,
     private val sendOrderUseCase: SendOrderUseCase,
     private val getOrderByStatusUseCase: GetOrderByStatusUseCase,
+    private val getAllSetsUseCase: GetAllSetsUseCase,
     private val sharedPrefsRepositoryImpl: SharedPrefsRepositoryImpl
 ) : ViewModel() {
 
@@ -34,6 +37,10 @@ class SecurityViewModel @Inject constructor(
     private val _ordersByStatus = MutableLiveData<ArrayList<Order>>()
     val ordersByStatus : LiveData<ArrayList<Order>>
     get() = _ordersByStatus
+
+    private val _setsDataClient = MutableLiveData<ArrayList<Sets>>()
+    val setsDataClient : LiveData<ArrayList<Sets>>
+        get() = _setsDataClient
 
     fun dataResidential() {
         viewModelScope.launch {
@@ -63,7 +70,6 @@ class SecurityViewModel @Inject constructor(
                 Log.d("JHONNY",result.body()?.message.toString())
             }else{
                 Log.d("JHONNY",result.body()?.error.toString())
-
             }
         }
     }
@@ -73,6 +79,15 @@ class SecurityViewModel @Inject constructor(
             val response = getOrderByStatusUseCase.invoke(status,conjunto, token)
             if (response.isNotEmpty()){
                 _ordersByStatus.value = response
+            }
+        }
+    }
+
+    fun getSetsData(conjunto:String, token: String){
+        viewModelScope.launch {
+            val data = getAllSetsUseCase.invoke(conjunto, token)
+            if (data.isNotEmpty()){
+                _setsDataClient.value = data
             }
         }
     }

@@ -1,10 +1,7 @@
 package com.edifice.residentialsecurity.data.network
 
 import com.edifice.residentialsecurity.core.ApiRoutes
-import com.edifice.residentialsecurity.data.model.Order
-import com.edifice.residentialsecurity.data.model.Residential
-import com.edifice.residentialsecurity.data.model.ResponseHttp
-import com.edifice.residentialsecurity.data.model.User
+import com.edifice.residentialsecurity.data.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.produce
 import kotlinx.coroutines.withContext
@@ -20,7 +17,8 @@ import javax.inject.Inject
 class ResidentialService @Inject constructor(
     private val  residentialRoutes: ResidentialsRoutes,
     private val userRoutes: UserRoutes,
-    private val orderRoutes: OrderRoutes
+    private val orderRoutes: OrderRoutes,
+    private val setsRoutes: SetsRoutes
     ) {
     
     suspend fun registerResidential(residential : Residential): Response<ResponseHttp>?{
@@ -93,4 +91,9 @@ class ResidentialService @Inject constructor(
     : ArrayList<Order>{
         return orderRoutes.getOrderByClientStatus(status, conjunto, idClient, token)
     }
+
+    suspend fun getAllSets(conjunto: String, token: String):ArrayList<Sets>{
+        return setsRoutes.getSetData(conjunto, token)
+    }
+
 }
