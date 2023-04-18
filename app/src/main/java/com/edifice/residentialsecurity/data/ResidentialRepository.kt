@@ -2,7 +2,6 @@ package com.edifice.residentialsecurity.data
 
 import com.edifice.residentialsecurity.data.model.*
 import com.edifice.residentialsecurity.data.network.ResidentialService
-import retrofit2.Call
 import retrofit2.Response
 import java.io.File
 import javax.inject.Inject
@@ -56,6 +55,17 @@ class ResidentialRepository @Inject constructor(private val residentialApi : Res
 
     suspend fun getAllSets(cojunto: String, token: String):ArrayList<Sets>{
         return residentialApi.getAllSets(cojunto, token)
+    }
+
+    suspend fun updateOrder(order: Order, token: String):Response<ResponseHttp>{
+        return residentialApi.updateOrder(order, token)
+    }
+    suspend fun getUserData(rol: String, residential: String, token: String): ArrayList<User>{
+        return residentialApi.getDataUser(rol, residential, token)
+    }
+
+    suspend fun createSecurity(security: User, token: String):Response<ResponseHttp>{
+        return residentialApi.createSecurity(security, token)
     }
 
 }

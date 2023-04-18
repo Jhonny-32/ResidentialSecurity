@@ -33,4 +33,10 @@ interface OrderRoutes {
         @Part("order") order: RequestBody,
     ) : Response<ResponseHttp>
 
+    @POST("orders/updateOrder")
+    suspend fun updateOrder(
+        @Body order : Order,
+        @Header("Authorization") token: String
+    ) : Response<ResponseHttp>
+
 }

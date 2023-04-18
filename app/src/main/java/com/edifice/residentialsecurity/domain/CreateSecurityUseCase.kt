@@ -1,16 +1,15 @@
 package com.edifice.residentialsecurity.domain
 
 import com.edifice.residentialsecurity.data.ResidentialRepository
-import com.edifice.residentialsecurity.data.model.Order
 import com.edifice.residentialsecurity.data.model.ResponseHttp
+import com.edifice.residentialsecurity.data.model.User
 import retrofit2.Response
-import java.io.File
 import javax.inject.Inject
 
-class SendOrderUseCase @Inject constructor(
+class CreateSecurityUseCase @Inject constructor(
     private val repository: ResidentialRepository
 ) {
-    suspend operator fun invoke(files: List<File>, order: Order): Response<ResponseHttp>{
-        return repository.sendOrder(files, order)
+    suspend operator fun invoke(security: User, token: String):Response<ResponseHttp>{
+        return repository.createSecurity(security, token)
     }
 }

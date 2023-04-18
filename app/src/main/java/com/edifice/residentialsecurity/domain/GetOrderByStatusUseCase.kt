@@ -2,7 +2,6 @@ package com.edifice.residentialsecurity.domain
 
 import com.edifice.residentialsecurity.data.ResidentialRepository
 import com.edifice.residentialsecurity.data.model.Order
-import retrofit2.Response
 import javax.inject.Inject
 
 class GetOrderByStatusUseCase @Inject constructor(

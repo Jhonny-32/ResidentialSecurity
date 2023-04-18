@@ -1,6 +1,6 @@
 package com.edifice.residentialsecurity.data.network
 
-import com.edifice.residentialsecurity.core.ApiRoutes
+
 import com.edifice.residentialsecurity.data.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.produce
@@ -41,7 +41,7 @@ class ResidentialService @Inject constructor(
 
     suspend fun getDataResident(conjunto: String, token : String): ArrayList<User>? {
         return withContext(Dispatchers.IO){
-            userRoutes?.getDataResident(conjunto, token)
+            userRoutes.getDataResident(conjunto, token)
         }
     }
 
@@ -51,7 +51,7 @@ class ResidentialService @Inject constructor(
             val image = MultipartBody.Part.createFormData("image", file.name, reqFile)
             val requestBody = RequestBody.create(MediaType.parse("text/plain"), user.toJson())
 
-            userRoutes?.update(image, requestBody, token)
+            userRoutes.update(image, requestBody, token)
         }
     }
 
@@ -94,6 +94,17 @@ class ResidentialService @Inject constructor(
 
     suspend fun getAllSets(conjunto: String, token: String):ArrayList<Sets>{
         return setsRoutes.getSetData(conjunto, token)
+    }
+
+    suspend fun updateOrder(order: Order, token: String):Response<ResponseHttp>{
+        return orderRoutes.updateOrder(order, token)
+    }
+    suspend fun getDataUser(rol: String, residential: String, token: String): ArrayList<User>{
+        return userRoutes.getDataUser(rol, residential, token)
+    }
+
+    suspend fun createSecurity(security: User, token: String):Response<ResponseHttp>{
+        return userRoutes.createSecurity(security, token)
     }
 
 }

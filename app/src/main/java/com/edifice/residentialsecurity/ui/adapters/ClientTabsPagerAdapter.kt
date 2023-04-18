@@ -11,7 +11,7 @@ import com.edifice.residentialsecurity.ui.securityGuard.securityGuardFragment.Se
 class ClientTabsPagerAdapter(
     fragmentManager : FragmentManager,
     lifecycle: Lifecycle,
-    var numberOfTabs : Int
+    private var numberOfTabs : Int
 ): FragmentStateAdapter(fragmentManager, lifecycle)  {
 
     override fun getItemCount(): Int {

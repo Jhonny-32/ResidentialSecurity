@@ -1,8 +1,6 @@
 package com.edifice.residentialsecurity.data.model
 
 import com.google.gson.annotations.SerializedName
-import javax.inject.Inject
-import javax.inject.Singleton
 
 
 class Rol(

@@ -6,17 +6,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
+import com.edifice.residentialsecurity.core.ViewUiState
 import com.edifice.residentialsecurity.data.model.Order
 import com.edifice.residentialsecurity.data.model.Sets
 import com.edifice.residentialsecurity.data.model.User
 import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
-import com.edifice.residentialsecurity.domain.GetAllSetsUseCase
-import com.edifice.residentialsecurity.domain.GetDataResidentialUseCase
-import com.edifice.residentialsecurity.domain.GetOrderByStatusUseCase
-import com.edifice.residentialsecurity.domain.SendOrderUseCase
+import com.edifice.residentialsecurity.domain.*
 import com.edifice.residentialsecurity.util.SharedPref
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -27,8 +27,13 @@ class SecurityViewModel @Inject constructor(
     private val sendOrderUseCase: SendOrderUseCase,
     private val getOrderByStatusUseCase: GetOrderByStatusUseCase,
     private val getAllSetsUseCase: GetAllSetsUseCase,
+    private val updateOrderUseCase: UpdateOrderUseCase,
     private val sharedPrefsRepositoryImpl: SharedPrefsRepositoryImpl
 ) : ViewModel() {
+
+    init {
+        dataResidential()
+    }
 
     private val _dataResident = MutableLiveData<ArrayList<User>>()
     val dataResident: LiveData<ArrayList<User>>
@@ -41,6 +46,10 @@ class SecurityViewModel @Inject constructor(
     private val _setsDataClient = MutableLiveData<ArrayList<Sets>>()
     val setsDataClient : LiveData<ArrayList<Sets>>
         get() = _setsDataClient
+
+    private val _createOrder = MutableStateFlow<ViewUiState>(ViewUiState.Empty)
+    val createOrder : StateFlow<ViewUiState>
+        get() = _createOrder
 
     fun dataResidential() {
         viewModelScope.launch {
@@ -65,11 +74,12 @@ class SecurityViewModel @Inject constructor(
 
     fun sendOrder(files : List<File>, order: Order){
         viewModelScope.launch {
+            _createOrder.value = ViewUiState.Loading
             val result = sendOrderUseCase.invoke(files, order)
             if (result.isSuccessful){
-                Log.d("JHONNY",result.body()?.message.toString())
+                _createOrder.value = ViewUiState.Success
             }else{
-                Log.d("JHONNY",result.body()?.error.toString())
+                _createOrder.value = ViewUiState.Error("Error al crear una orden")
             }
         }
     }
@@ -89,6 +99,12 @@ class SecurityViewModel @Inject constructor(
             if (data.isNotEmpty()){
                 _setsDataClient.value = data
             }
+        }
+    }
+
+    fun updateOrder(order: Order, token: String){
+        viewModelScope.launch {
+            updateOrderUseCase.invoke(order, token)
         }
     }
 

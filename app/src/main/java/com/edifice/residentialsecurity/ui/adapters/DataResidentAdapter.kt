@@ -5,15 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.edifice.residentialsecurity.R
 import com.edifice.residentialsecurity.databinding.CardviewDataResidentBinding
-import com.edifice.residentialsecurity.data.model.Rol
 import com.edifice.residentialsecurity.data.model.User
-import com.edifice.residentialsecurity.util.SharedPref
-import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 class DataResidentAdapter(

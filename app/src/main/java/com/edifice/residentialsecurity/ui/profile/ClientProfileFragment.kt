@@ -11,11 +11,9 @@ import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.edifice.residentialsecurity.ui.login.MainActivity
-//import com.edifice.residentialsecurity.ui.client.update.ClientUpdateActivity
 import com.edifice.residentialsecurity.data.model.User
 import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
 import com.edifice.residentialsecurity.ui.client.update.ClientUpdateActivity
-import com.edifice.residentialsecurity.ui.securityGuard.SecurityViewModel
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -82,8 +80,8 @@ class ClientProfileFragment : Fragment() {
 
     private fun getUserFromSession() {
         val gson = Gson()
-        if (!sharedPref?.getData("user").isNullOrBlank()) {
-            user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
+        if (!sharedPref.getData("user").isNullOrBlank()) {
+            user = gson.fromJson(sharedPref.getData("user"), User::class.java)
         }
     }
 

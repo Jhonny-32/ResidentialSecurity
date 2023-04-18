@@ -4,8 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context=".ui.client.ClientOrderDetailActivity">
-
+	tools:context=".ui.securityGuard.SecurityOrderDetailActivity">
 
 
 	<LinearLayout
@@ -151,5 +150,16 @@
 				android:text="Estado " />
 
 		</LinearLayout>
+		<Button
+			android:id="@+id/btn_update"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="25dp"
+			android:background="@drawable/rounded_button"
+			android:textColor="@color/black"
+			android:text="ENTREGAR"
+			android:visibility="gone"
+			/>
 	</LinearLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -36,4 +36,17 @@ interface UserRoutes {
         @Field("conjunto") conjunto: String,
         @Header("Authorization") token: String
     ): ArrayList<User>
+
+    @GET("users/getDataUser/{nameRol}/{nameResidential}")
+    suspend fun getDataUser(
+        @Path("nameRol") rol: String,
+        @Path("nameResidential") residential: String,
+        @Header("Authorization") token: String
+    ):ArrayList<User>
+
+    @POST("user/createSecurity")
+    suspend fun createSecurity(
+        @Body user: User,
+        @Header("Authorization") token: String
+    ):Response<ResponseHttp>
 }

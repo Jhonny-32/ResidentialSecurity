@@ -74,6 +74,7 @@ class MainViewModel @Inject constructor(
             if (register?.isSuccessful == true){
                 _loginUser.value = ViewUiState.Success
                 saveUserInSession(register.body()?.data.toString())
+                Log.d("QA",register.body()?.data.toString())
             }else{
                 _loginUser.value = ViewUiState.Error("Error al iniciar sesion")
             }

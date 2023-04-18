@@ -59,8 +59,8 @@ class ClientUpdateActivity : AppCompatActivity() {
     }
     private fun getUserFromSession() {
         val gson = Gson()
-        if (!sharedPref?.getData("user").isNullOrBlank()) {
-            user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
+        if (!sharedPref.getData("user").isNullOrBlank()) {
+            user = gson.fromJson(sharedPref.getData("user"), User::class.java)
         }
     }
 
@@ -68,14 +68,18 @@ class ClientUpdateActivity : AppCompatActivity() {
         val resultCode = result.resultCode
         val data = result.data
 
-        if (resultCode == RESULT_OK) {
-            val fileUri = data?.data
-            imageFile = File(fileUri?.path.toString()) // El ARCHIVO QUE VAMOS A GUARDAR EN EL SERVIDOR
-            binding.circleimageUser.setImageURI(fileUri)
-        } else if (resultCode == ImagePicker.RESULT_ERROR) {
-            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(this, "La tarea se cancelo", Toast.LENGTH_LONG).show()
+        when (resultCode) {
+            RESULT_OK -> {
+                val fileUri = data?.data
+                imageFile = File(fileUri?.path.toString()) // El ARCHIVO QUE VAMOS A GUARDAR EN EL SERVIDOR
+                binding.circleimageUser.setImageURI(fileUri)
+            }
+            ImagePicker.RESULT_ERROR -> {
+                Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_LONG).show()
+            }
+            else -> {
+                Toast.makeText(this, "La tarea se cancelo", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -94,10 +98,10 @@ class ClientUpdateActivity : AppCompatActivity() {
         user?.phone = binding.edittextPhone.text.toString()
 
         if (imageFile != null){
-            clientUpdateViewModel?.updateUserImage(imageFile!!, user!!, user?.sessionToken!!)
+            clientUpdateViewModel.updateUserImage(imageFile!!, user!!, user?.sessionToken!!)
         }
         else{
-            clientUpdateViewModel?.updateUser(user!!, user?.sessionToken!!)
+            clientUpdateViewModel.updateUser(user!!, user?.sessionToken!!)
         }
     }
 }

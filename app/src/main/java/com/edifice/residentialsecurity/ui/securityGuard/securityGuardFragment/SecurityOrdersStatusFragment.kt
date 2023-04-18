@@ -15,6 +15,7 @@ import com.edifice.residentialsecurity.databinding.FragmentSecurityDataResidentB
 import com.edifice.residentialsecurity.databinding.FragmentSecurityOrdersStatusBinding
 import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
 import com.edifice.residentialsecurity.ui.adapters.OrdersClientAdapter
+import com.edifice.residentialsecurity.ui.adapters.OrdersSecurityAdapter
 import com.edifice.residentialsecurity.ui.securityGuard.SecurityViewModel
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,7 +31,7 @@ class SecurityOrdersStatusFragment : Fragment() {
 
     @Inject
     lateinit var sharedPref: SharedPrefsRepositoryImpl
-    private lateinit var adapter : OrdersClientAdapter
+    private lateinit var adapter : OrdersSecurityAdapter
 
     var user: User? = null
     var status = ""
@@ -47,7 +48,7 @@ class SecurityOrdersStatusFragment : Fragment() {
         binding.recyclerviewOrders.layoutManager = LinearLayoutManager(requireContext())
         securityViewModels.getOrders(status,user?.conjunto!! ,user?.sessionToken!!)
         securityViewModels.ordersByStatus.observe(requireActivity(), Observer {data ->
-            adapter = OrdersClientAdapter(requireActivity(), data)
+            adapter = OrdersSecurityAdapter(requireActivity(), data)
             binding.recyclerviewOrders.adapter = adapter
             adapter.notifyDataSetChanged()
         })

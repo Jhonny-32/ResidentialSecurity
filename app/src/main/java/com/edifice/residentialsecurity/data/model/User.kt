@@ -2,8 +2,6 @@ package com.edifice.residentialsecurity.data.model
 
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import javax.inject.Inject
-import javax.inject.Singleton
 
 
 class User(
@@ -20,11 +18,14 @@ class User(
     @SerializedName("roles") val roles: ArrayList<Rol>? = null,
 
     @SerializedName("tower") var tower: String ? = null,
-    @SerializedName("apartament") var apartament: String? = null
+    @SerializedName("apartament") var apartament: String? = null,
+    @SerializedName("residential") var residential: String? = null,
+    @SerializedName("residentialID") var residentialID: String? = null
 ) {
     fun getFullName(): String = "$name $lastname"
+
     override fun toString(): String {
-        return "User(id=$id, name='$name', lastname='$lastname', phone='$phone', email='$email', image=$image, dni='$dni', password='$password', sessionToken=$sessionToken, conjunto=$conjunto, roles=$roles, tower='$tower', apartament='$apartament')"
+        return "User(id=$id, name='$name', lastname='$lastname', phone='$phone', email='$email', image=$image, dni='$dni', password='$password', sessionToken=$sessionToken, conjunto=$conjunto, roles=$roles, tower=$tower, apartament=$apartament, residential=$residential)"
     }
 
     fun isNotEmpty() = name.isNotEmpty() && lastname.isNotEmpty() && phone.isNotEmpty() && email.isNotEmpty() && dni.isNotEmpty() && password.isNotEmpty()
@@ -32,5 +33,7 @@ class User(
     fun toJson(): String{
         return Gson().toJson(this)
     }
+
+
 }
 
