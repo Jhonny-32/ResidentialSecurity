@@ -9,10 +9,10 @@ class User(
     @SerializedName("name") var name: String,
     @SerializedName("lastname") var lastname: String,
     @SerializedName("phone") var phone: String,
-    @SerializedName("email") val email: String,
+    @SerializedName("email") val email: String ? = null,
     @SerializedName("image") val image: String? = null,
-    @SerializedName("dni") val dni: String,
-    @SerializedName("password") val password: String,
+    @SerializedName("dni") val dni: String? = null,
+    @SerializedName("password") val password: String? = null,
     @SerializedName("session_token") val sessionToken: String? = null,
     @SerializedName("conjunto") val conjunto: String? = null,
     @SerializedName("roles") val roles: ArrayList<Rol>? = null,
@@ -28,7 +28,7 @@ class User(
         return "User(id=$id, name='$name', lastname='$lastname', phone='$phone', email='$email', image=$image, dni='$dni', password='$password', sessionToken=$sessionToken, conjunto=$conjunto, roles=$roles, tower=$tower, apartament=$apartament, residential=$residential)"
     }
 
-    fun isNotEmpty() = name.isNotEmpty() && lastname.isNotEmpty() && phone.isNotEmpty() && email.isNotEmpty() && dni.isNotEmpty() && password.isNotEmpty()
+    fun isNotEmpty() = name.isNotEmpty() && lastname.isNotEmpty() && phone.isNotEmpty() && email!!.isNotEmpty() && dni!!.isNotEmpty() && password!!.isNotEmpty()
 
     fun toJson(): String{
         return Gson().toJson(this)

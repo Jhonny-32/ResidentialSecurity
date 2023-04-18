@@ -101,7 +101,7 @@ class ClientUpdateActivity : AppCompatActivity() {
             clientUpdateViewModel.updateUserImage(imageFile!!, user!!, user?.sessionToken!!)
         }
         else{
-            clientUpdateViewModel.updateUser(user!!, user?.sessionToken!!)
+            clientUpdateViewModel.updateUser(user!!)
         }
     }
 }

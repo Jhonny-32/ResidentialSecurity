@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.edifice.residentialsecurity.R
-import com.edifice.residentialsecurity.data.model.Order
 import com.edifice.residentialsecurity.data.model.User
-import com.edifice.residentialsecurity.ui.client.ClientOrderDetailActivity
-import com.edifice.residentialsecurity.ui.home.administratorSecurity.updateSecurity.UpdateSecurityFragment
+import com.edifice.residentialsecurity.ui.home.administratorSecurity.updateSecurity.UpdateSecurityActivity
 
 
 class DataUserAdapter(val context: Activity, private val user: ArrayList<User>) :
@@ -40,7 +38,7 @@ class DataUserAdapter(val context: Activity, private val user: ArrayList<User>) 
     }
 
     private fun goToOrderDetail(data: User) {
-        val i = Intent(context, UpdateSecurityFragment::class.java)
+        val i = Intent(context, UpdateSecurityActivity::class.java)
         i.putExtra("securityData", data.toJson())
         context.startActivity(i)
     }

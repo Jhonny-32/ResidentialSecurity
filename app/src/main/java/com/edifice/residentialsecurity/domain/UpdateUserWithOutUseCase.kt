@@ -10,8 +10,8 @@ class UpdateUserWithOutUseCase @Inject constructor(
     private val repository : ResidentialRepository
 ){
 
-    suspend operator fun invoke(user: User, token: String):Response<ResponseHttp>?{
-        return repository.updateUser(user, token)
+    suspend operator fun invoke(user: User):Response<ResponseHttp>{
+        return repository.updateUser(user)
     }
 
 }

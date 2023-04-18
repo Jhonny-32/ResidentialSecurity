@@ -55,9 +55,9 @@ class ResidentialService @Inject constructor(
         }
     }
 
-    suspend fun updateUserWithOut(user: User, token: String):Response<ResponseHttp>?{
+    suspend fun updateUserWithOut(user: User):Response<ResponseHttp>{
         return withContext(Dispatchers.IO){
-            userRoutes.updateWithOutImage(user, token)
+            userRoutes.updateWithOutImage(user)
         }
     }
 

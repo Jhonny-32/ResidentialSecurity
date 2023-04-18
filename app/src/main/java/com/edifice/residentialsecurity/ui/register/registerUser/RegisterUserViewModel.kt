@@ -86,9 +86,9 @@ class RegisterUserViewModel @Inject constructor(
         return RegisterUserViewState(
             isValidName = isValidName(name),
             isValidLastName = isValidName(lastname),
-            isValidDni = isValidNumber(dni),
-            isValidEmail = isValidOrEmptyEmail(email),
-            isValidPassword = isValidOrEmptyPassword(password),
+            isValidDni = isValidNumber(dni!!),
+            isValidEmail = isValidOrEmptyEmail(email!!),
+            isValidPassword = isValidOrEmptyPassword(password!!),
             isValidPhone = isValidNumber(phone)
         )
     }

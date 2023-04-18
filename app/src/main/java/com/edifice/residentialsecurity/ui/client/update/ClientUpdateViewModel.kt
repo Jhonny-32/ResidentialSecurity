@@ -50,10 +50,10 @@ class ClientUpdateViewModel @Inject constructor(
         }
     }
 
-    fun updateUser(user: User, token: String){
+    fun updateUser(user: User){
         viewModelScope.launch {
             _updateUser.value = ViewUiState.Loading
-            val updateOutImage = updateUserWithOutUseCase(user, token)
+            val updateOutImage = updateUserWithOutUseCase(user)
             if (updateOutImage!!.isSuccessful){
                 saveUserInSession(updateOutImage.body()?.data.toString())
                 _updateUser.value = ViewUiState.SuccessMessage("Actualizado Correctamente")
@@ -82,9 +82,9 @@ class ClientUpdateViewModel @Inject constructor(
         return RegisterUserViewState(
             isValidName = isValidName(name),
             isValidLastName = isValidName(lastname),
-            isValidDni = isValidNumber(dni),
-            isValidEmail = isValidOrEmptyEmail(email),
-            isValidPassword = isValidOrEmptyPassword(password),
+            isValidDni = isValidNumber(dni!!),
+            isValidEmail = isValidOrEmptyEmail(email!!),
+            isValidPassword = isValidOrEmptyPassword(password!!),
             isValidPhone = isValidNumber(phone)
         )
     }

@@ -27,7 +27,7 @@ interface UserRoutes {
     @PUT("users/updateWithOut")
     suspend fun updateWithOutImage(
         @Body user : User,
-        @Header("Authorization") token: String
+        //@Header("Authorization") token: String
     ): Response<ResponseHttp>
 
     @FormUrlEncoded

@@ -1,71 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	package="com.edifice.residentialsecurity">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.edifice.residentialsecurity" >
 
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.CAMERA" />
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-	<uses-permission android:name="android.permission.CALL_PHONE" />
-	<uses-permission
-		android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-		tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
 
-	<application
-		android:name=".ResidentialSecurity"
-		android:allowBackup="true"
-		android:icon="@mipmap/ic_launcher"
-		android:label="@string/app_name"
-		android:roundIcon="@mipmap/ic_launcher_round"
-		android:supportsRtl="true"
-		android:theme="@style/Theme.ResidentialSecurity"
-		android:usesCleartextTraffic="true">
-		<activity
-			android:name=".ui.securityGuard.SecurityOrderDetailActivity"
-			android:exported="false" />
-		<activity
-			android:name=".ui.client.ClientOrderDetailActivity"
-			android:exported="false"
-			android:parentActivityName=".ui.client.home.ClientHomeActivity" />
-		<activity
-			android:name=".ui.client.update.ClientUpdateActivity"
-			android:exported="false" />
-		<activity
-			android:name=".ui.manager.ManagerHomeActivity"
-			android:exported="false" />
-		<activity
-			android:name=".ui.securityGuard.SecurityHomeActivity"
-			android:exported="false" />
-		<activity
-			android:name=".ui.saveImage.SaveImageActivity"
-			android:exported="true" />
-		<activity
-			android:name=".ui.home.AdministratorHomeActivity"
-			android:exported="false" />
-		<activity
-			android:name=".ui.SelectRolesActivity"
-			android:exported="false" />
-		<activity
-			android:name=".ui.client.home.ClientHomeActivity"
-			android:exported="true" />
-		<activity
-			android:name=".ui.register.registerUser.RegisterUserActivity"
-			android:exported="true" />
-		<activity
-			android:name=".ui.register.registerResidential.RegisterResidentialActivity"
-			android:exported="true" />
-		<activity
-			android:name=".ui.login.MainActivity"
-			android:exported="true"
-			android:theme="@style/Theme.ResidentialSecurity.login">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-		</activity>
-	</application>
+    <application
+        android:name=".ResidentialSecurity"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ResidentialSecurity"
+        android:usesCleartextTraffic="true" >
+        <activity
+            android:name=".ui.home.administratorSecurity.updateSecurity.UpdateSecurityActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.securityGuard.SecurityOrderDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.client.ClientOrderDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.client.home.ClientHomeActivity" />
+        <activity
+            android:name=".ui.client.update.ClientUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.manager.ManagerHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.securityGuard.SecurityHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.saveImage.SaveImageActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.home.AdministratorHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.SelectRolesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.client.home.ClientHomeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.register.registerUser.RegisterUserActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.register.registerResidential.RegisterResidentialActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.login.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.ResidentialSecurity.login" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 
 </manifest>

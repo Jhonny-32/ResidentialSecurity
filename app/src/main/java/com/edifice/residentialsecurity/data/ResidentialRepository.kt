@@ -28,8 +28,8 @@ class ResidentialRepository @Inject constructor(private val residentialApi : Res
         return residentialApi.updateUserImage(file,user,token)
     }
 
-    suspend fun updateUser(user: User, token: String): Response<ResponseHttp>?{
-        return residentialApi.updateUserWithOut(user, token)
+    suspend fun updateUser(user: User): Response<ResponseHttp>{
+        return residentialApi.updateUserWithOut(user)
     }
 
     suspend fun sendResidentialUser(idResidential: String, idUser: String): Response<ResponseHttp>?{
