@@ -24,7 +24,11 @@ import kotlinx.coroutines.launch
 class RegisterUserActivity : AppCompatActivity() {
 
     companion object {
-        fun create(context: Context): Intent = Intent(context, RegisterUserActivity::class.java)
+        fun create(context: Context): Intent {
+            val intent = Intent(context, RegisterUserActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            return intent
+        }
     }
 
     private lateinit var binding: ActivityRegisterUserBinding

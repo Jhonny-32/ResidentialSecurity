@@ -35,9 +35,9 @@
 					android:id="@+id/edittext_name_resident"
 					android:layout_width="280dp"
 					android:layout_height="wrap_content"
+					android:enabled="false"
 					android:inputType="text"
-					android:textColor="@color/black"
-					android:enabled="false"/>
+					android:textColor="@color/black" />
 
 			</com.google.android.material.textfield.TextInputLayout>
 

@@ -34,10 +34,10 @@ class DataUserAdapter(val context: Activity, private val user: ArrayList<User>) 
         holder.textViewPhone.text = data.phone
         holder.textViewDni.text = data.dni
 
-        holder.itemView.setOnClickListener { goToOrderDetail(data) }
+        holder.itemView.setOnClickListener { goToSecurityDetail(data) }
     }
 
-    private fun goToOrderDetail(data: User) {
+    private fun goToSecurityDetail(data: User) {
         val i = Intent(context, UpdateSecurityActivity::class.java)
         i.putExtra("securityData", data.toJson())
         context.startActivity(i)

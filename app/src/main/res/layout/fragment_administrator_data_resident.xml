@@ -5,10 +5,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.administratorResident.AdministratorDataResidentFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerDataUser"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Administrador: Datos de los residentes" />
+        android:layout_height="match_parent"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="TODO"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="100dp"
+        android:layout_marginRight="20dp"
+        android:backgroundTint="@color/green"
+        android:src="@drawable/ic_add"/>
 
 </FrameLayout>

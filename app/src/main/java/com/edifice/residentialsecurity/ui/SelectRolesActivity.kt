@@ -18,7 +18,11 @@ import javax.inject.Inject
 class SelectRolesActivity : AppCompatActivity() {
 
     companion object {
-        fun create(context: Context): Intent = Intent(context, SelectRolesActivity::class.java)
+        fun create(context: Context): Intent {
+            val intent = Intent(context, SelectRolesActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            return intent
+        }
     }
     private lateinit var binding: ActivitySelectRolesBinding
     var user: User?= null
