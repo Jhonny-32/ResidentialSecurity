@@ -13,6 +13,7 @@ import com.edifice.residentialsecurity.ui.securityGuard.securityGuardFragment.Se
 import com.edifice.residentialsecurity.ui.securityGuard.securityGuardFragment.SecurityOrdersFragment
 import com.edifice.residentialsecurity.data.model.User
 import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
+import com.edifice.residentialsecurity.ui.home.AdministratorHomeActivity
 import com.edifice.residentialsecurity.ui.securityGuard.securityGuardFragment.SecurityCreateOrderFragment
 import com.edifice.residentialsecurity.util.SharedPref
 import com.google.gson.Gson
@@ -23,7 +24,11 @@ import javax.inject.Inject
 class SecurityHomeActivity : AppCompatActivity() {
 
     companion object {
-        fun create(context: Context): Intent = Intent(context, SecurityHomeActivity::class.java)
+        fun create(context: Context): Intent {
+            val intent = Intent(context, SecurityHomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            return intent
+        }
     }
 
 
@@ -44,18 +49,22 @@ class SecurityHomeActivity : AppCompatActivity() {
         binding.bottomNavigations.setOnItemSelectedListener{
             when(it.itemId){
                 R.id.item_orders ->{
+                    clearBackStack()
                     openFragment(SecurityOrdersFragment())
                     true
                 }
                 R.id.item_create_order ->{
+                    clearBackStack()
                     openFragment(SecurityCreateOrderFragment())
                     true
                 }
                 R.id.item_data_resident ->{
+                    clearBackStack()
                     openFragment(SecurityDataResidentFragment())
                     true
                 }
                 R.id.item_profile -> {
+                    clearBackStack()
                     openFragment(ClientProfileFragment())
                     true
                 }
@@ -70,6 +79,13 @@ class SecurityHomeActivity : AppCompatActivity() {
         transaction.replace(R.id.container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    private fun clearBackStack() {
+        val fragmentManager = supportFragmentManager
+        for (i in 0 until fragmentManager.backStackEntryCount) {
+            fragmentManager.popBackStack()
+        }
     }
 
     private fun getUserFromSession(){

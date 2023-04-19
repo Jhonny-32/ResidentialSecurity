@@ -9,6 +9,7 @@ import com.edifice.residentialsecurity.R
 import com.edifice.residentialsecurity.data.model.User
 import com.edifice.residentialsecurity.databinding.ActivityAdministratorHomeBinding
 import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsRepositoryImpl
+import com.edifice.residentialsecurity.ui.SelectRolesActivity
 import com.edifice.residentialsecurity.ui.home.administratorResident.AdministratorDataResidentFragment
 import com.edifice.residentialsecurity.ui.home.administratorSecurity.AdministratorDataSecurityFragment
 import com.edifice.residentialsecurity.ui.home.administratorOrder.AdministratorOrdersFragment
@@ -22,7 +23,11 @@ import javax.inject.Inject
 class AdministratorHomeActivity : AppCompatActivity() {
 
     companion object {
-        fun create(context: Context): Intent = Intent(context, AdministratorHomeActivity::class.java)
+        fun create(context: Context): Intent {
+            val intent = Intent(context, AdministratorHomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            return intent
+        }
     }
 
     private lateinit var binding: ActivityAdministratorHomeBinding
@@ -38,18 +43,22 @@ class AdministratorHomeActivity : AppCompatActivity() {
         binding.bottomNavigations.setOnItemSelectedListener{
             when(it.itemId){
                 R.id.item_orders -> {
+                    clearBackStack()
                     openFragment(AdministratorOrdersFragment())
                     true
                 }
                 R.id.item_data_security ->{
+                    clearBackStack()
                     openFragment(AdministratorDataSecurityFragment())
                     true
                 }
                 R.id.item_data_resident ->{
+                    clearBackStack()
                     openFragment(AdministratorDataResidentFragment())
                     true
                 }
                 R.id.item_profile ->{
+                    clearBackStack()
                     openFragment(ClientProfileFragment())
                     true
                 }
@@ -65,6 +74,12 @@ class AdministratorHomeActivity : AppCompatActivity() {
         transaction.replace(R.id.container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+    private fun clearBackStack() {
+        val fragmentManager = supportFragmentManager
+        for (i in 0 until fragmentManager.backStackEntryCount) {
+            fragmentManager.popBackStack()
+        }
     }
 
     private fun getUserFromSession(){

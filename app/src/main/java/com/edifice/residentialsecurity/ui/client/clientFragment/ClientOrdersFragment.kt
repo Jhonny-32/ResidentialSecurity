@@ -23,7 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class ClientOrdersFragment : Fragment() {
 
 
-
     private var _binding: FragmentClientOrdersBinding?= null
     private val binding get() = _binding!!
 

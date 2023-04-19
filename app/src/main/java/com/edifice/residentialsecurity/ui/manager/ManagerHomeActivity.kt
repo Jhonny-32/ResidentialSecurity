@@ -13,6 +13,7 @@ import com.edifice.residentialsecurity.di.sharedPreferencesDi.SharedPrefsReposit
 import com.edifice.residentialsecurity.ui.fragments.manager.ManagerMapsFragment
 import com.edifice.residentialsecurity.ui.login.MainActivity
 import com.edifice.residentialsecurity.ui.profile.ClientProfileFragment
+import com.edifice.residentialsecurity.ui.securityGuard.SecurityHomeActivity
 import com.edifice.residentialsecurity.util.SharedPref
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +23,11 @@ import javax.inject.Inject
 class ManagerHomeActivity : AppCompatActivity() {
 
     companion object {
-        fun create(context: Context): Intent = Intent(context, ManagerHomeActivity::class.java)
+        fun create(context: Context): Intent {
+            val intent = Intent(context, ManagerHomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            return intent
+        }
     }
 
     private lateinit var binding: ActivityManagerHomeBinding
@@ -38,10 +43,12 @@ class ManagerHomeActivity : AppCompatActivity() {
         binding.bottomNavigations.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.item_maps -> {
+                    clearBackStack()
                     openFragment(ManagerMapsFragment())
                     true
                 }
                 R.id.item_profile -> {
+                    clearBackStack()
                     openFragment(ClientProfileFragment())
                     true
                 }
@@ -57,6 +64,13 @@ class ManagerHomeActivity : AppCompatActivity() {
         transaction.replace(R.id.container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    private fun clearBackStack() {
+        val fragmentManager = supportFragmentManager
+        for (i in 0 until fragmentManager.backStackEntryCount) {
+            fragmentManager.popBackStack()
+        }
     }
 
     private fun getUserFromSession(){
