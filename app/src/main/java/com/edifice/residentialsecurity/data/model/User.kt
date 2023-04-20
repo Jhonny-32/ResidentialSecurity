@@ -24,14 +24,16 @@ class User(
 ) {
     fun getFullName(): String = "$name $lastname"
 
-    override fun toString(): String {
-        return "User(id=$id, name='$name', lastname='$lastname', phone='$phone', email='$email', image=$image, dni='$dni', password='$password', sessionToken=$sessionToken, conjunto=$conjunto, roles=$roles, tower=$tower, apartament=$apartament, residential=$residential)"
-    }
+
 
     fun isNotEmpty() = name.isNotEmpty() && lastname.isNotEmpty() && phone.isNotEmpty() && email!!.isNotEmpty() && dni!!.isNotEmpty() && password!!.isNotEmpty()
 
     fun toJson(): String{
         return Gson().toJson(this)
+    }
+
+    override fun toString(): String {
+        return "User(id=$id, name='$name', lastname='$lastname', phone='$phone', email=$email, image=$image, dni=$dni, password=$password, sessionToken=$sessionToken, conjunto=$conjunto, roles=$roles, tower=$tower, apartament=$apartament, residential=$residential, residentialID=$residentialID)"
     }
 
 

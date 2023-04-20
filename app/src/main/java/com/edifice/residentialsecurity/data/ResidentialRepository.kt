@@ -63,9 +63,11 @@ class ResidentialRepository @Inject constructor(private val residentialApi : Res
     suspend fun getUserData(rol: String, residential: String, token: String): ArrayList<User>{
         return residentialApi.getDataUser(rol, residential, token)
     }
-
     suspend fun createSecurity(security: User, token: String):Response<ResponseHttp>{
         return residentialApi.createSecurity(security, token)
+    }
+    suspend fun createResident(resident: User, token: String):Response<ResponseHttp>{
+        return residentialApi.createResident(resident,token)
     }
 
 }

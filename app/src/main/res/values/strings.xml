@@ -25,5 +25,10 @@
 	<string name="create_success">Creado correctamente</string>
 	<string name="update_security">Actualizado correctamente</string>
 
+	<string name="valid_tower">Torre no valida</string>
+	<string name="valid_apartament">Apartamento no valido</string>
+	<string name="success_register_security">Registrado correctamente el vigilante</string>
+	<string name="success_register_resident">Registrado correctamente el residente</string>
+
 	<string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

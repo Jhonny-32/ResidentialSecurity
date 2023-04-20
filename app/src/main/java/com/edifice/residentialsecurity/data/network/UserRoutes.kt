@@ -1,6 +1,7 @@
 package com.edifice.residentialsecurity.data.network
 
 import com.edifice.residentialsecurity.data.model.ResponseHttp
+import com.edifice.residentialsecurity.data.model.Sets
 import com.edifice.residentialsecurity.data.model.User
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -49,4 +50,11 @@ interface UserRoutes {
         @Body user: User,
         @Header("Authorization") token: String
     ):Response<ResponseHttp>
+
+    @POST("user/createResident")
+    suspend fun createResident(
+        @Body user: User,
+        @Header("Authorization") token: String
+    ):Response<ResponseHttp>
+
 }

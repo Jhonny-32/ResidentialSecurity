@@ -102,9 +102,11 @@ class ResidentialService @Inject constructor(
     suspend fun getDataUser(rol: String, residential: String, token: String): ArrayList<User>{
         return userRoutes.getDataUser(rol, residential, token)
     }
-
     suspend fun createSecurity(security: User, token: String):Response<ResponseHttp>{
         return userRoutes.createSecurity(security, token)
+    }
+    suspend fun createResident(resident: User,token: String):Response<ResponseHttp>{
+        return userRoutes.createResident(resident, token)
     }
 
 }

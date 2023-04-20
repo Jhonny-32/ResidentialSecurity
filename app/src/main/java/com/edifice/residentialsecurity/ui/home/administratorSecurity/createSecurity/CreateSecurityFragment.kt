@@ -91,7 +91,7 @@ class CreateSecurityFragment : Fragment() {
                         email = binding.edittextEmail.text.toString(),
                         dni = binding.edittextDni.text.toString(),
                         password = binding.edittextPassword.text.toString(),
-                        residentialID = "1"
+                        residential = user?.residentialID
                     ),
                     user?.sessionToken!!
                 )
@@ -113,7 +113,7 @@ class CreateSecurityFragment : Fragment() {
                     is ViewUiState.Success -> {
                         Snackbar.make(
                             binding.root,
-                            getString(R.string.register_user_success),
+                            getString(R.string.success_register_security),
                             Snackbar.LENGTH_LONG
                         ).show()
                         binding.progressBar.isVisible = false
