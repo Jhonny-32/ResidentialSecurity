@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.edifice.residentialsecurity.R
 import com.edifice.residentialsecurity.databinding.CardviewDataResidentBinding
 import com.edifice.residentialsecurity.data.model.User
+import com.edifice.residentialsecurity.ui.home.administratorResident.updateResident.UpdateResidentActivity
 import com.edifice.residentialsecurity.ui.home.administratorSecurity.updateSecurity.UpdateSecurityActivity
 import kotlin.collections.ArrayList
 
@@ -36,7 +37,7 @@ class DataResidentForAdmiAdapter(
     }
 
     private fun goToResidentDetail(resident: User) {
-        val i = Intent(context, UpdateSecurityActivity::class.java)
+        val i = Intent(context, UpdateResidentActivity::class.java)
         i.putExtra("residentData", resident.toJson())
         context.startActivity(i)
     }

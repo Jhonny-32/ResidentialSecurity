@@ -20,7 +20,9 @@ class User(
     @SerializedName("tower") var tower: String ? = null,
     @SerializedName("apartament") var apartament: String? = null,
     @SerializedName("residential") var residential: String? = null,
-    @SerializedName("residentialID") var residentialID: String? = null
+    @SerializedName("residentialID") var residentialID: String? = null,
+    @SerializedName("idset") var idset: String? = null,
+    @SerializedName("setid") var setid: String? = null
 ) {
     fun getFullName(): String = "$name $lastname"
 
@@ -33,7 +35,7 @@ class User(
     }
 
     override fun toString(): String {
-        return "User(id=$id, name='$name', lastname='$lastname', phone='$phone', email=$email, image=$image, dni=$dni, password=$password, sessionToken=$sessionToken, conjunto=$conjunto, roles=$roles, tower=$tower, apartament=$apartament, residential=$residential, residentialID=$residentialID)"
+        return "User(id=$id, idset=$idset, name='$name', lastname='$lastname', phone='$phone', email=$email, image=$image, dni=$dni, password=$password, sessionToken=$sessionToken, conjunto=$conjunto, roles=$roles, tower=$tower, apartament=$apartament, residential=$residential, residentialID=$residentialID)"
     }
 
 

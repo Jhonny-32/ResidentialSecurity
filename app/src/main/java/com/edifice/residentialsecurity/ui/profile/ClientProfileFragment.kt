@@ -93,8 +93,9 @@ class ClientProfileFragment : Fragment() {
     private fun logout(){
         sharedPref.remove("user")
         sharedPref.remove("roles")
-        val i = Intent(requireContext(), MainActivity::class.java)
-        startActivity(i)
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
 }

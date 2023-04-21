@@ -69,5 +69,8 @@ class ResidentialRepository @Inject constructor(private val residentialApi : Res
     suspend fun createResident(resident: User, token: String):Response<ResponseHttp>{
         return residentialApi.createResident(resident,token)
     }
+    suspend fun updateResident(resident: User, token: String):Response<ResponseHttp>{
+        return residentialApi.updateResident(resident, token)
+    }
 
 }

@@ -108,5 +108,8 @@ class ResidentialService @Inject constructor(
     suspend fun createResident(resident: User,token: String):Response<ResponseHttp>{
         return userRoutes.createResident(resident, token)
     }
+    suspend fun updateResident(resident: User, token: String):Response<ResponseHttp>{
+        return userRoutes.updateResident(resident, token)
+    }
 
 }

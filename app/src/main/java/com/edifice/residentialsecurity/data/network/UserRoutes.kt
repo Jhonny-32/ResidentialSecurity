@@ -57,4 +57,10 @@ interface UserRoutes {
         @Header("Authorization") token: String
     ):Response<ResponseHttp>
 
+    @PUT("users/updateResident")
+    suspend fun updateResident(
+        @Body resident: User,
+        @Header("Authorization") token: String
+    ):Response<ResponseHttp>
+
 }
