@@ -24,6 +24,10 @@
 		android:theme="@style/Theme.ResidentialSecurity"
 		android:usesCleartextTraffic="true">
 		<activity
+			android:name=".ui.payment.ClientPaymentFormActivity"
+			android:exported="true">
+		</activity>
+		<activity
 			android:name=".ui.home.administratorResident.updateResident.UpdateResidentActivity"
 			android:exported="false" />
 		<activity
@@ -69,7 +73,6 @@
 			android:theme="@style/Theme.ResidentialSecurity.login">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
-
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>

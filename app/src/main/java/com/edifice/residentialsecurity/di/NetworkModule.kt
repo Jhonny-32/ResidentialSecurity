@@ -31,7 +31,7 @@ object NetworkModule {
     @Provides
     fun provideRetrofit():Retrofit{
         return Retrofit.Builder()
-            .baseUrl("http://192.168.0.14:3000/api/")
+            .baseUrl("http://192.168.0.13:3000/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
